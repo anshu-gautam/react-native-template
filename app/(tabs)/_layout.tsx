@@ -28,6 +28,13 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="ai"
+        options={{
+          title: 'AI',
+          tabBarIcon: ({ color }) => <AIIcon color={color} />,
+        }}
+      />
+      <Tabs.Screen
         name="profile"
         options={{
           title: t('tabs.profile'),
@@ -47,6 +54,8 @@ export default function TabLayout() {
 
 // Simple icon components (you can replace these with proper icons from @expo/vector-icons)
 const HomeIcon = ({ color }: { color: string }) => <span style={{ fontSize: 24, color }}>🏠</span>;
+
+const AIIcon = ({ color }: { color: string }) => <span style={{ fontSize: 24, color }}>🤖</span>;
 
 const ProfileIcon = ({ color }: { color: string }) => (
   <span style={{ fontSize: 24, color }}>👤</span>

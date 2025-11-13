@@ -34,7 +34,8 @@
         "noUselessLabel": "error",
         "noUselessRename": "error",
         "noVoid": "error",
-        "noWith": "error"
+        "noWith": "error",
+        "useArrowFunction": "warn"
       },
       "correctness": {
         "noConstAssign": "error",
@@ -94,6 +95,9 @@
         "noUnsafeNegation": "error",
         "useGetterReturn": "error",
         "useValidTypeof": "error"
+      },
+      "security": {
+        "noGlobalEval": "warn"
       }
     }
   },

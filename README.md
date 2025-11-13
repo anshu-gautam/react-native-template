@@ -16,6 +16,18 @@ A production-ready, zero-setup React Native Expo app boilerplate with all the la
 - **Supabase** for PostgreSQL database, real-time subscriptions, and storage
 - **Expo API Routes** for backend endpoints with authentication and rate limiting middleware
 
+### AI Integration (NEW!)
+- **Vercel AI SDK** with unified interface for multiple LLM providers
+- **OpenAI Provider** with GPT-4o for chat and DALL-E 3 for image generation
+- **Streaming Support** with Server-Sent Events (SSE) for real-time token streaming
+- **Provider Abstraction** to swap models/providers with one line
+- **Tools/Functions** pattern for function calling (Supabase lookups, calculations, etc.)
+- **Type-Safe** Zod schemas for all AI requests and responses
+- **Protected Endpoints** with Clerk authentication and per-user rate limiting (20 req/hour)
+- **Sentry Instrumentation** for latency, token usage, and error tracking
+- **useAIChat Hook** with streaming state, abort support, and network awareness
+- **AI Playground** demo screen with Chat, Completions, and Image Generation
+
 ### State Management & Data
 - **Zustand 4** for global state management with MMKV persistence
 - **TanStack Query v5** for server state, caching, and synchronization
@@ -299,6 +311,180 @@ export async function GET(req: ExpoRequest) {
   return Response.json({ message: 'Hello' });
 }
 ```
+
+## AI Integration
+
+The boilerplate includes a complete AI module built on the Vercel AI SDK with streaming support, provider abstraction, and production-ready security.
+
+### Setup
+
+1. **Add your OpenAI API key** to `.env.local`:
+   ```bash
+   # ⚠️ SERVER-ONLY - Never use EXPO_PUBLIC_ prefix!
+   OPENAI_API_KEY=sk-your-key-here
+   AI_PROVIDER=openai
+   ```
+
+2. **Security Warning**: AI API keys are **SERVER-ONLY**. They:
+   - Must NOT be prefixed with `EXPO_PUBLIC_`
+   - Can ONLY be accessed in `/app/api/` routes
+   - Will NOT be bundled in the client app
+   - Are protected by Clerk authentication and rate limiting
+
+### Available Endpoints
+
+#### Chat (Streaming)
+```typescript
+POST /api/ai/chat
+
+Body: {
+  messages: Array<{ role: 'user' | 'assistant', content: string }>,
+  systemPrompt?: string,
+  temperature?: number,  // 0-2, default: 0.7
+  maxTokens?: number,    // default: 1000
+  stream?: boolean,      // default: true
+  tools?: string[]       // optional: ['searchNotes', 'getCurrentTime', etc.]
+}
+
+Response: Server-Sent Events (SSE) with NDJSON chunks
+```
+
+#### Completion (Single-shot)
+```typescript
+POST /api/ai/complete
+
+Body: {
+  prompt: string,
+  systemPrompt?: string,
+  temperature?: number,
+  maxTokens?: number
+}
+
+Response: { text: string, usage: {...}, finishReason: string }
+```
+
+#### Image Generation
+```typescript
+POST /api/ai/image
+
+Body: {
+  prompt: string,
+  size?: '1024x1024' | '1792x1024' | '1024x1792',
+  quality?: 'standard' | 'hd',
+  style?: 'vivid' | 'natural'
+}
+
+Response: { images: Array<{ url: string }> }
+```
+
+### Using the AI Chat Hook
+
+```typescript
+import { useAIChat } from '@/features/ai/hooks';
+
+function ChatComponent() {
+  const {
+    messages,        // Message history
+    isLoading,       // Request in progress
+    isStreaming,     // Tokens streaming
+    error,           // Error state
+    send,            // Send message function
+    abort,           // Abort current request
+    clear,           // Clear history
+    isOnline,        // Network status
+  } = useAIChat({
+    systemPrompt: 'You are a helpful assistant',
+    temperature: 0.7,
+    maxTokens: 1000,
+  });
+
+  return (
+    // Your UI here
+    <Button onPress={() => send('Hello!')}>Send</Button>
+  );
+}
+```
+
+### Provider Abstraction
+
+Swap AI providers with one line:
+
+```typescript
+// src/services/ai/provider.ts
+export const getAIProvider = (): AIProvider => {
+  return 'openai';  // Change to 'anthropic', 'google', or 'local'
+};
+```
+
+### Tools / Function Calling
+
+Define server-side tools that the AI can invoke:
+
+```typescript
+// app/api/ai/tools.ts
+export const searchNotesTool = tool({
+  description: 'Search user notes',
+  parameters: z.object({
+    query: z.string(),
+  }),
+  execute: async ({ query }) => {
+    const { data } = await supabase
+      .from('notes')
+      .textSearch('content', query);
+    return { results: data };
+  },
+});
+```
+
+Use in requests:
+```typescript
+POST /api/ai/chat
+{
+  "messages": [...],
+  "tools": ["searchNotes", "getCurrentTime"]
+}
+```
+
+### Rate Limiting
+
+AI endpoints are rate limited per user:
+- **20 requests per hour** per user
+- Responses include rate limit headers:
+  - `X-RateLimit-Limit: 20`
+  - `X-RateLimit-Remaining: 15`
+  - `X-RateLimit-Reset: 1234567890`
+
+### AI Playground
+
+Access the demo screen at `/ai` tab to try:
+- **Chat**: Streaming conversational AI
+- **Completions**: Single-shot text generation
+- **Images**: DALL-E 3 image generation
+
+### Monitoring
+
+All AI requests are instrumented with Sentry:
+- Request latency
+- Token usage
+- Stream aborts
+- Provider errors
+- Error context
+
+### Optional: On-Device Inference
+
+To add local model support:
+
+1. Set provider flag:
+   ```typescript
+   AI_PROVIDER=local
+   ```
+
+2. Implement provider in `src/services/ai/provider.ts`:
+   ```typescript
+   // TODO: Add react-native-ai or MLC implementation
+   ```
+
+Note: Cloud-based is default and recommended for production.
 
 ## Customization
 
