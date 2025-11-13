@@ -1,5 +1,5 @@
+import { useI18n, useTheme } from '@/hooks';
 import { Tabs } from 'expo-router';
-import { useTheme, useI18n } from '@/hooks';
 
 export default function TabLayout() {
   const { colors } = useTheme();
@@ -46,9 +46,7 @@ export default function TabLayout() {
 }
 
 // Simple icon components (you can replace these with proper icons from @expo/vector-icons)
-const HomeIcon = ({ color }: { color: string }) => (
-  <span style={{ fontSize: 24, color }}>🏠</span>
-);
+const HomeIcon = ({ color }: { color: string }) => <span style={{ fontSize: 24, color }}>🏠</span>;
 
 const ProfileIcon = ({ color }: { color: string }) => (
   <span style={{ fontSize: 24, color }}>👤</span>

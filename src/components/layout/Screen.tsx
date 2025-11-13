@@ -1,7 +1,7 @@
-import React from 'react';
-import { View, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '@/hooks';
+import type React from 'react';
+import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface ScreenProps {
   children: React.ReactNode;
@@ -48,11 +48,7 @@ export const Screen: React.FC<ScreenProps> = ({
     );
 
     return safeArea ? (
-      <SafeAreaView
-        edges={edges}
-        className="flex-1"
-        style={{ backgroundColor: colors.background }}
-      >
+      <SafeAreaView edges={edges} className="flex-1" style={{ backgroundColor: colors.background }}>
         {keyboardContent}
       </SafeAreaView>
     ) : (

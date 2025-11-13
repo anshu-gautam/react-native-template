@@ -35,10 +35,7 @@ export const generateId = (): string => {
   return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 };
 
-export const pick = <T extends object, K extends keyof T>(
-  obj: T,
-  keys: K[]
-): Pick<T, K> => {
+export const pick = <T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> => {
   const result = {} as Pick<T, K>;
   for (const key of keys) {
     if (key in obj) {
@@ -48,10 +45,7 @@ export const pick = <T extends object, K extends keyof T>(
   return result;
 };
 
-export const omit = <T extends object, K extends keyof T>(
-  obj: T,
-  keys: K[]
-): Omit<T, K> => {
+export const omit = <T extends object, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> => {
   const result = { ...obj };
   for (const key of keys) {
     delete result[key];

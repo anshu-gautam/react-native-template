@@ -1,12 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: "class",
-  content: [
-    "./App.{js,jsx,ts,tsx}",
-    "./app/**/*.{js,jsx,ts,tsx}",
-    "./src/**/*.{js,jsx,ts,tsx}"
-  ],
-  presets: [require("nativewind/preset")],
+  darkMode: 'class',
+  content: ['./App.{js,jsx,ts,tsx}', './app/**/*.{js,jsx,ts,tsx}', './src/**/*.{js,jsx,ts,tsx}'],
+  presets: [require('nativewind/preset')],
   theme: {
     extend: {
       colors: {
@@ -74,17 +70,17 @@ module.exports = {
           800: '#92400e',
           900: '#78350f',
           950: '#451a03',
-        }
+        },
       },
       fontFamily: {
         'space-mono': ['SpaceMono-Regular', 'monospace'],
       },
       spacing: {
-        '18': '4.5rem',
-        '88': '22rem',
-        '128': '32rem',
-      }
+        18: '4.5rem',
+        88: '22rem',
+        128: '32rem',
+      },
     },
   },
   plugins: [],
-}
+};

@@ -7,15 +7,7 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "ignore": [
-      "node_modules",
-      ".expo",
-      "dist",
-      "build",
-      "android",
-      "ios",
-      ".git"
-    ]
+    "ignore": ["node_modules", ".expo", "dist", "build", "android", "ios", ".git"]
   },
   "formatter": {
     "enabled": true,

@@ -1,14 +1,14 @@
-import React from 'react';
+import { useTheme } from '@/hooks';
+import type React from 'react';
 import {
-  View,
-  Modal as RNModal,
-  TouchableOpacity,
-  Text,
   Pressable,
-  ModalProps as RNModalProps,
+  Modal as RNModal,
+  type ModalProps as RNModalProps,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import Animated, { FadeIn, FadeOut, SlideInDown, SlideOutDown } from 'react-native-reanimated';
-import { useTheme } from '@/hooks';
 
 interface ModalProps extends Partial<RNModalProps> {
   visible: boolean;
@@ -29,13 +29,7 @@ export const Modal: React.FC<ModalProps> = ({
   const { colors } = useTheme();
 
   return (
-    <RNModal
-      visible={visible}
-      transparent
-      animationType="none"
-      onRequestClose={onClose}
-      {...props}
-    >
+    <RNModal visible={visible} transparent animationType="none" onRequestClose={onClose} {...props}>
       <Animated.View
         entering={FadeIn}
         exiting={FadeOut}

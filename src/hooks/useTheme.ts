@@ -1,6 +1,6 @@
-import { useColorScheme } from 'react-native';
+import { type ColorScheme, Colors } from '@/constants';
 import { useUserStore } from '@/store';
-import { Colors, type ColorScheme } from '@/constants';
+import { useColorScheme } from 'react-native';
 
 export const useTheme = () => {
   const systemColorScheme = useColorScheme();

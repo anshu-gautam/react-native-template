@@ -1,7 +1,7 @@
-import { useAuth as useClerkAuth, useUser as useClerkUser } from '@clerk/clerk-expo';
-import { useEffect } from 'react';
 import { useAuthStore } from '@/store';
 import type { User } from '@/types';
+import { useAuth as useClerkAuth, useUser as useClerkUser } from '@clerk/clerk-expo';
+import { useEffect } from 'react';
 
 export const useAuth = () => {
   const { isSignedIn, isLoaded } = useClerkAuth();

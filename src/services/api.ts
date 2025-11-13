@@ -1,6 +1,6 @@
-import axios, { AxiosInstance, AxiosError, AxiosRequestConfig } from 'axios';
-import { ApiError, ApiResponse } from '@/types';
 import { logError } from '@/lib/sentry';
+import type { ApiError, ApiResponse } from '@/types';
+import axios, { type AxiosInstance, type AxiosError, type AxiosRequestConfig } from 'axios';
 
 const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3000/api';
 
@@ -66,20 +66,12 @@ class ApiClient {
     return response.data;
   }
 
-  async post<T>(
-    url: string,
-    data?: unknown,
-    config?: AxiosRequestConfig
-  ): Promise<ApiResponse<T>> {
+  async post<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
     const response = await this.client.post<ApiResponse<T>>(url, data, config);
     return response.data;
   }
 
-  async put<T>(
-    url: string,
-    data?: unknown,
-    config?: AxiosRequestConfig
-  ): Promise<ApiResponse<T>> {
+  async put<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
     const response = await this.client.put<ApiResponse<T>>(url, data, config);
     return response.data;
   }
@@ -103,7 +95,7 @@ class ApiClient {
   }
 
   removeAuthToken(): void {
-    delete this.client.defaults.headers.common.Authorization;
+    this.client.defaults.headers.common.Authorization = undefined;
   }
 }
 

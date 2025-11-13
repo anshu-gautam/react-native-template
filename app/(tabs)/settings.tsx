@@ -1,11 +1,12 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, Switch } from 'react-native';
-import { Screen, Container, Card } from '@/components';
-import { useTheme, useI18n, useUserStore } from '@/hooks';
+import { Card, Container, Screen } from '@/components';
+import { useI18n, useTheme } from '@/hooks';
+import { useUserStore } from '@/store';
 import Constants from 'expo-constants';
+import React from 'react';
+import { Switch, Text, TouchableOpacity, View } from 'react-native';
 
 export default function SettingsScreen() {
-  const { colors, theme, setTheme, isDark } = useTheme();
+  const { colors, theme, setTheme } = useTheme();
   const { language, changeLanguage, t } = useI18n();
   const { preferences, setNotificationsEnabled } = useUserStore();
 
@@ -90,7 +91,10 @@ export default function SettingsScreen() {
           <Text className="text-lg font-bold mb-4" style={{ color: colors.text }}>
             {t('settings.about')}
           </Text>
-          <SettingRow label={t('settings.version')} value={Constants.expoConfig?.version || '1.0.0'} />
+          <SettingRow
+            label={t('settings.version')}
+            value={Constants.expoConfig?.version || '1.0.0'}
+          />
           <SettingRow label="App Name" value={Constants.expoConfig?.name || 'App'} />
         </Card>
       </Container>
@@ -113,10 +117,7 @@ const ThemeButton = ({
       onPress={onPress}
       className={`px-4 py-2 rounded-lg ${active ? 'bg-primary-500' : 'bg-gray-200 dark:bg-gray-700'}`}
     >
-      <Text
-        className="text-sm font-medium"
-        style={{ color: active ? '#fff' : colors.text }}
-      >
+      <Text className="text-sm font-medium" style={{ color: active ? '#fff' : colors.text }}>
         {label}
       </Text>
     </TouchableOpacity>

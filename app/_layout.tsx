@@ -1,17 +1,17 @@
 import '../global.css';
-import { useEffect } from 'react';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ClerkProvider } from '@clerk/clerk-expo';
-import { I18nextProvider } from 'react-i18next';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
+import { StatusBar } from 'expo-status-bar';
+import { useEffect } from 'react';
+import { I18nextProvider } from 'react-i18next';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-import { tokenCache, CLERK_PUBLISHABLE_KEY } from '@/services/clerk';
-import { initSentry } from '@/lib/sentry';
-import i18n from '@/lib/i18n';
 import { useTheme } from '@/hooks';
+import i18n from '@/lib/i18n';
+import { initSentry } from '@/lib/sentry';
+import { CLERK_PUBLISHABLE_KEY, tokenCache } from '@/services/clerk';
 
 // Initialize Sentry
 initSentry();

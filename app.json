@@ -6,15 +6,12 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.yourcompany.boilerplate",
@@ -41,30 +38,7 @@
       "favicon": "./assets/favicon.png",
       "bundler": "metro"
     },
-    "plugins": [
-      "expo-router",
-      [
-        "expo-font",
-        {
-          "fonts": [
-            "./assets/fonts/SpaceMono-Regular.ttf"
-          ]
-        }
-      ],
-      [
-        "@react-native-firebase/app",
-        {
-          "ios": {
-            "googleServicesFile": "./GoogleService-Info.plist"
-          },
-          "android": {
-            "googleServicesFile": "./google-services.json"
-          }
-        }
-      ],
-      "expo-secure-store",
-      "expo-localization"
-    ],
+    "plugins": ["expo-router", "expo-secure-store", "expo-localization"],
     "scheme": "myapp",
     "experiments": {
       "typedRoutes": true

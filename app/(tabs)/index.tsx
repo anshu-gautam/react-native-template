@@ -1,7 +1,7 @@
-import React from 'react';
-import { View, Text } from 'react-native';
-import { Screen, Container, Card, Button } from '@/components';
-import { useAuth, useTheme, useI18n } from '@/hooks';
+import { Button, Card, Container, Screen } from '@/components';
+import { useAuth, useI18n, useTheme } from '@/hooks';
+import type React from 'react';
+import { Text, View } from 'react-native';
 
 export default function HomeScreen() {
   const { user } = useAuth();

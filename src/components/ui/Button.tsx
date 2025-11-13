@@ -1,7 +1,7 @@
-import React from 'react';
-import { TouchableOpacity, Text, ActivityIndicator, View } from 'react-native';
+import { useHaptics, useTheme } from '@/hooks';
+import type React from 'react';
+import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
-import { useTheme, useHaptics } from '@/hooks';
 
 const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 

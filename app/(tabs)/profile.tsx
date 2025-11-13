@@ -1,8 +1,8 @@
-import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { Button, Card, Container, Screen } from '@/components';
+import { useAuth, useI18n, useTheme } from '@/hooks';
 import { router } from 'expo-router';
-import { Screen, Container, Card, Button } from '@/components';
-import { useAuth, useTheme, useI18n } from '@/hooks';
+import React from 'react';
+import { Image, Text, View } from 'react-native';
 
 export default function ProfileScreen() {
   const { user, signOut } = useAuth();
@@ -20,10 +20,7 @@ export default function ProfileScreen() {
         <Card className="mb-6 items-center">
           <View className="w-24 h-24 rounded-full bg-primary-100 items-center justify-center mb-4">
             {user?.imageUrl ? (
-              <Image
-                source={{ uri: user.imageUrl }}
-                className="w-24 h-24 rounded-full"
-              />
+              <Image source={{ uri: user.imageUrl }} className="w-24 h-24 rounded-full" />
             ) : (
               <Text className="text-4xl">👤</Text>
             )}
@@ -34,7 +31,10 @@ export default function ProfileScreen() {
           <Text className="text-base mb-4" style={{ color: colors.textSecondary }}>
             {user?.email}
           </Text>
-          <Button variant="outline" onPress={() => {}}>
+          <Button
+            variant="outline"
+            onPress={() => console.log('Edit profile - not implemented yet')}
+          >
             {t('profile.editProfile')}
           </Button>
         </Card>

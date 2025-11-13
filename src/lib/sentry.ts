@@ -55,7 +55,10 @@ export const logError = (error: Error, context?: Record<string, unknown>): void 
   Sentry.captureException(error);
 };
 
-export const logMessage = (message: string, level: Sentry.SeverityLevel = 'info'): void => {
+export const logMessage = (
+  message: string,
+  level: 'fatal' | 'error' | 'warning' | 'log' | 'info' | 'debug' = 'info'
+): void => {
   Sentry.captureMessage(message, level);
 };
 

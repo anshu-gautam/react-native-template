@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
-import { router } from 'expo-router';
 import { useSignUp } from '@clerk/clerk-expo';
-import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { router } from 'expo-router';
+import React, { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { Alert, Text, TouchableOpacity, View } from 'react-native';
 
-import { Screen, Container, Button, Input } from '@/components';
-import { signUpSchema, type SignUpInput } from '@/features/auth/schemas';
-import { useTheme, useI18n } from '@/hooks';
+import { Button, Container, Input, Screen } from '@/components';
+import { type SignUpInput, signUpSchema } from '@/features/auth/schemas';
+import { useI18n, useTheme } from '@/hooks';
 
 export default function SignUpScreen() {
   const { signUp, setActive, isLoaded } = useSignUp();

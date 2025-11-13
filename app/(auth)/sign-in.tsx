@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
-import { router } from 'expo-router';
 import { useSignIn } from '@clerk/clerk-expo';
-import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { router } from 'expo-router';
+import React, { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { Alert, Text, TouchableOpacity, View } from 'react-native';
 
-import { Screen, Container, Button, Input } from '@/components';
-import { signInSchema, type SignInInput } from '@/features/auth/schemas';
-import { useTheme, useI18n } from '@/hooks';
+import { Button, Container, Input, Screen } from '@/components';
+import { type SignInInput, signInSchema } from '@/features/auth/schemas';
+import { useI18n, useTheme } from '@/hooks';
 
 export default function SignInScreen() {
   const { signIn, setActive, isLoaded } = useSignIn();
@@ -97,9 +97,7 @@ export default function SignInScreen() {
           />
 
           <TouchableOpacity onPress={() => router.push('/(auth)/forgot-password')}>
-            <Text className="text-primary-500 text-sm text-right">
-              {t('auth.forgotPassword')}
-            </Text>
+            <Text className="text-primary-500 text-sm text-right">{t('auth.forgotPassword')}</Text>
           </TouchableOpacity>
         </View>
 

@@ -1,3 +1,4 @@
+import type React from 'react';
 import { create } from 'zustand';
 
 interface Toast {
