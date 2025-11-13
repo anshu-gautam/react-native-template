@@ -5,11 +5,11 @@ A production-ready, zero-setup React Native Expo app boilerplate with all the la
 ## Features
 
 ### Core Stack
-- **Expo SDK 54+** with New Architecture enabled
-- **Expo Router v8+** with file-based routing, typed routes, and API routes
+- **Expo SDK 51** with stable production support
+- **Expo Router v3.5** with file-based routing, typed routes, and API routes
 - **TypeScript 5.3+** with strict mode and path aliases
 - **NativeWind v4** for Tailwind CSS styling with dark mode support
-- **React Native Reanimated 4** for smooth 120fps animations
+- **React Native Reanimated 3** for smooth 60fps animations
 
 ### Authentication & Backend
 - **Clerk** for complete authentication (sign-up, sign-in, OAuth, email verification, password reset)
