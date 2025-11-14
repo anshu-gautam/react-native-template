@@ -14,4 +14,4 @@ export type TabParamList = {
   settings: undefined;
 };
 
-export type AppRoute = Href<string>;
+export type AppRoute = Href;

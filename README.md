@@ -5,11 +5,12 @@ A production-ready, zero-setup React Native Expo app boilerplate with all the la
 ## Features
 
 ### Core Stack
-- **Expo SDK 51** with stable production support
-- **Expo Router v3.5** with file-based routing, typed routes, and API routes
+- **Expo SDK 54** with React Native 0.81 and React 19.1
+- **Expo Router v4.0** with file-based routing, typed routes, and API routes
 - **TypeScript 5.3+** with strict mode and path aliases
 - **NativeWind v4** for Tailwind CSS styling with dark mode support
-- **React Native Reanimated 3** for smooth 60fps animations
+- **React Native Reanimated 3.16** for smooth 60fps animations
+- **Precompiled XCFrameworks** for iOS (10x faster builds - 120s → 10s)
 
 ### Authentication & Backend
 - **Clerk** for complete authentication (sign-up, sign-in, OAuth, email verification, password reset)
@@ -31,23 +32,69 @@ A production-ready, zero-setup React Native Expo app boilerplate with all the la
 ### State Management & Data
 - **Zustand 4** for global state management with MMKV persistence
 - **TanStack Query v5** for server state, caching, and synchronization
+- **Offline-First Support** with TanStack Query persistence and MMKV storage
 - **MMKV** for fast key-value storage (replacing AsyncStorage)
+
+### Testing & Quality
+- **Jest 29** with React Native Testing Library
+- **Test Coverage** for services and utilities
+- **TypeScript Strict Mode** for type safety
+- **Biome** for fast linting and formatting (replacing ESLint + Prettier)
+- **Husky + lint-staged** for pre-commit hooks
+- **Commitlint** for conventional commit message enforcement
+
+### Media & Device Features (NEW!)
+- **Expo Camera** for photo and video capture
+- **Expo Image Picker** for gallery access
+- **Expo Media Library** for media management
+- **Multi-Image Selection** with configurable limits
+- **Video Support** with quality and duration controls
+- **Biometric Authentication** (Face ID, Touch ID, Fingerprint)
+- **Secure Storage** with biometric protection
+
+### Push Notifications & Communication (NEW!)
+- **Expo Notifications** for local and push notifications
+- **Notification Permissions** handling
+- **Notification Channels** (Android)
+- **Badge Management** for app icons
+- **Custom Notification Triggers** (time, location)
+
+### Background Tasks & Offline (NEW!)
+- **Background Fetch** for periodic data sync
+- **Task Manager** for background job scheduling
+- **Offline Query Persistence** with automatic retry
+- **Network-Aware Data Fetching** with graceful degradation
+
+### Analytics & Monitoring (NEW!)
+- **PostHog** for product analytics and feature flags
+- **Event Tracking** with custom properties
+- **Screen View Tracking** with Expo Router integration
+- **User Identification** and properties
+- **Feature Flags** for A/B testing
+- **Sentry** for error monitoring and crash reporting
+
+### Deep Linking & Navigation (NEW!)
+- **Universal Links** (iOS) and App Links (Android) support
+- **Custom URL Schemes** configuration
+- **Deep Link Parsing** utilities
+- **Route Generation** helpers
+- **Expo Router** integration for seamless navigation
 
 ### Forms & Validation
 - **React Hook Form 7** for performant form management
 - **Zod** for TypeScript-first schema validation
 
-### Developer Experience
-- **Biome** for fast linting and formatting (replacing ESLint + Prettier)
-- **Husky + lint-staged** for pre-commit hooks
-- **Commitlint** for conventional commit message enforcement
-- Path aliases (`@/components`, `@/features`, `@/lib`, `@/types`)
-
 ### Utilities & Features
 - **i18next** with expo-localization for internationalization and RTL support
-- **Sentry** for error monitoring and crash reporting
 - **Expo Haptics** for haptic feedback
 - **date-fns** for date formatting
+- Path aliases (`@/components`, `@/features`, `@/lib`, `@/types`)
+
+### Build & Deployment
+- **EAS Build** for cloud builds (development, preview, production)
+- **EAS Update** for over-the-air updates
+- **Auto-Increment** build numbers
+- **Multi-Environment** configuration (dev, preview, prod)
 
 ## Project Structure
 
@@ -229,6 +276,11 @@ npm start              # Start Expo development server
 npm run android        # Run on Android
 npm run ios            # Run on iOS
 npm run web            # Run on web
+
+# Testing
+npm test               # Run Jest tests
+npm test -- --coverage # Run tests with coverage report
+npm test -- --watch    # Run tests in watch mode
 
 # Code Quality
 npm run lint           # Run Biome linter
