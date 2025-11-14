@@ -99,7 +99,7 @@ export async function isTaskRegistered(taskName: string): Promise<boolean> {
 /**
  * Get background fetch status
  */
-export async function getBackgroundFetchStatus(): Promise<BackgroundFetch.BackgroundFetchStatus> {
+export async function getBackgroundFetchStatus(): Promise<BackgroundFetch.BackgroundFetchStatus | null> {
   return await BackgroundFetch.getStatusAsync();
 }
 

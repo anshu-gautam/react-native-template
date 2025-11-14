@@ -9,7 +9,7 @@
  */
 
 import { QueryClient } from '@tanstack/react-query';
-import { createAsyncStoragePersister } from '@tanstack/react-query-persist-client';
+import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
 import { storage } from './mmkv';
 
 /**
@@ -17,20 +17,17 @@ import { storage } from './mmkv';
  */
 export const queryPersister = createAsyncStoragePersister({
   storage: {
-    getItem: (key) => {
+    getItem: async (key: string) => {
       const value = storage.getString(key);
-      return Promise.resolve(value ?? null);
+      return value ?? null;
     },
-    setItem: (key, value) => {
+    setItem: async (key: string, value: string) => {
       storage.set(key, value);
-      return Promise.resolve();
     },
-    removeItem: (key) => {
+    removeItem: async (key: string) => {
       storage.delete(key);
-      return Promise.resolve();
     },
   },
-  key: 'REACT_QUERY_OFFLINE_CACHE',
   throttleTime: 1000, // Throttle writes to storage
 });
 

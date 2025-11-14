@@ -80,6 +80,15 @@ A production-ready, zero-setup React Native Expo app boilerplate with all the la
 - **Route Generation** helpers
 - **Expo Router** integration for seamless navigation
 
+### UI/UX & User Engagement (NEW!)
+- **Toast Notifications** with success, error, warning, info types
+- **Network Status Banner** for offline/online state
+- **QR/Barcode Scanner** with multiple format support
+- **Social Sharing** (WhatsApp, Twitter, Facebook, Instagram, Email, SMS)
+- **File Sharing** with native share sheet
+- **App Rating Prompts** with smart timing and frequency controls
+- **Haptic Feedback** integration throughout
+
 ### Forms & Validation
 - **React Hook Form 7** for performant form management
 - **Zod** for TypeScript-first schema validation

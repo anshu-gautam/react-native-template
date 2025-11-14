@@ -12,7 +12,7 @@
 
 import * as ImagePicker from 'expo-image-picker';
 import * as MediaLibrary from 'expo-media-library';
-import { Camera, CameraType } from 'expo-camera';
+import { Camera } from 'expo-camera';
 
 export type MediaType = 'photo' | 'video' | 'all';
 
@@ -82,9 +82,9 @@ export async function takePhoto(options?: {
     return {
       uri: asset.uri,
       type: 'image',
-      width: asset.width,
-      height: asset.height,
-      base64: asset.base64,
+      width: asset.width ?? undefined,
+      height: asset.height ?? undefined,
+      base64: asset.base64 ?? undefined,
     };
   } catch (error) {
     console.error('Error taking photo:', error);
@@ -122,9 +122,9 @@ export async function recordVideo(options?: {
     return {
       uri: asset.uri,
       type: 'video',
-      width: asset.width,
-      height: asset.height,
-      duration: asset.duration,
+      width: asset.width ?? undefined,
+      height: asset.height ?? undefined,
+      duration: asset.duration ?? undefined,
     };
   } catch (error) {
     console.error('Error recording video:', error);
@@ -159,9 +159,9 @@ export async function pickImage(options?: {
     return {
       uri: asset.uri,
       type: 'image',
-      width: asset.width,
-      height: asset.height,
-      base64: asset.base64,
+      width: asset.width ?? undefined,
+      height: asset.height ?? undefined,
+      base64: asset.base64 ?? undefined,
     };
   } catch (error) {
     console.error('Error picking image:', error);
@@ -192,9 +192,9 @@ export async function pickVideo(options?: {
     return {
       uri: asset.uri,
       type: 'video',
-      width: asset.width,
-      height: asset.height,
-      duration: asset.duration,
+      width: asset.width ?? undefined,
+      height: asset.height ?? undefined,
+      duration: asset.duration ?? undefined,
     };
   } catch (error) {
     console.error('Error picking video:', error);
@@ -225,8 +225,8 @@ export async function pickMultipleImages(options?: {
     return result.assets.map((asset) => ({
       uri: asset.uri,
       type: 'image' as const,
-      width: asset.width,
-      height: asset.height,
+      width: asset.width ?? undefined,
+      height: asset.height ?? undefined,
     }));
   } catch (error) {
     console.error('Error picking multiple images:', error);
