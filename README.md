@@ -88,6 +88,47 @@ A production-ready, zero-setup React Native Expo app boilerplate with all the la
 - **File Sharing** with native share sheet
 - **App Rating Prompts** with smart timing and frequency controls
 - **Haptic Feedback** integration throughout
+- **Skeleton Loaders** with shimmer animation for loading states
+- **Empty States** component for no-data scenarios
+- **Pull-to-Refresh** pattern for data reloading
+- **Infinite Scroll** helper for pagination
+- **Bottom Sheet** component with swipeable modal
+- **Image Carousel** with pagination dots and auto-play
+
+### File Management & Device Features (LATEST!)
+- **Document Picker** for selecting files from device storage
+- **File Upload** with progress tracking
+- **File Download** with resume capability
+- **File Operations** (copy, move, delete, read, write)
+- **Clipboard Management** (copy, paste, check)
+- **Contacts Access** with permission handling
+- **Calendar Integration** (create events, get calendars)
+- **Device Information** (brand, model, OS, memory)
+- **Battery Status** and low power mode detection
+- **Network State** monitoring and IP address retrieval
+
+### App Lifecycle & Update Management (LATEST!)
+- **Onboarding Flow** with swipeable carousel
+- **Force Update** mechanism with version checking
+- **App Shortcuts** (iOS Quick Actions, Android App Shortcuts)
+- **Version Comparison** utilities
+- **Smart Onboarding** with step tracking and skip option
+
+### WebView & Web Content (LATEST!)
+- **Secure WebView** component with JavaScript bridge
+- **Native-to-Web Messaging** bidirectional communication
+- **Cookie Management** utilities
+- **Local Storage** integration from native side
+- **Domain Whitelisting** for security
+- **Console Logging** from web to native
+
+### Payment & Monetization (LATEST!)
+- **RevenueCat + Stripe** integration guide
+- **Cross-Platform Subscriptions** (iOS, Android, Web)
+- **External Payment Links** (post-Epic v. Apple 2025)
+- **Subscription Management** with entitlements
+- **Receipt Validation** and restore purchases
+- **Comprehensive Documentation** with setup steps
 
 ### Forms & Validation
 - **React Hook Form 7** for performant form management
@@ -139,8 +180,16 @@ my-app/
 │   │   ├── ui/                   # Reusable UI components
 │   │   │   ├── Button.tsx
 │   │   │   ├── Input.tsx
-│   │   │   ├── Card.tsx
-│   │   │   └── Modal.tsx
+│   │   │   ├── Toast.tsx
+│   │   │   ├── NetworkStatusBanner.tsx
+│   │   │   ├── BarcodeScanner.tsx
+│   │   │   ├── SkeletonLoader.tsx
+│   │   │   ├── EmptyState.tsx
+│   │   │   ├── BottomSheet.tsx
+│   │   │   ├── ImageCarousel.tsx
+│   │   │   ├── OnboardingCarousel.tsx
+│   │   │   ├── ForceUpdateModal.tsx
+│   │   │   └── SecureWebView.tsx
 │   │   └── layout/               # Layout components
 │   │       ├── Screen.tsx
 │   │       └── Container.tsx
@@ -149,7 +198,9 @@ my-app/
 │   │   ├── useUser.ts
 │   │   ├── useTheme.ts
 │   │   ├── useI18n.ts
-│   │   └── useHaptics.ts
+│   │   ├── useToast.ts
+│   │   ├── usePullToRefresh.ts
+│   │   └── useInfiniteScroll.ts
 │   ├── store/                    # Zustand stores
 │   │   ├── authStore.ts
 │   │   ├── userStore.ts
@@ -157,7 +208,19 @@ my-app/
 │   ├── services/                 # External services
 │   │   ├── clerk.ts
 │   │   ├── supabase.ts
-│   │   └── api.ts
+│   │   ├── api.ts
+│   │   ├── media.ts
+│   │   ├── notifications.ts
+│   │   ├── toast.ts
+│   │   ├── sharing.ts
+│   │   ├── appRating.ts
+│   │   ├── scanner.ts
+│   │   ├── fileManagement.ts
+│   │   ├── deviceFeatures.ts
+│   │   ├── onboarding.ts
+│   │   ├── forceUpdate.ts
+│   │   ├── appShortcuts.ts
+│   │   └── webview.ts
 │   ├── lib/                      # Library configurations
 │   │   ├── i18n/
 │   │   │   ├── index.ts
@@ -166,6 +229,7 @@ my-app/
 │   │   │       ├── es.json
 │   │   │       └── ar.json
 │   │   ├── mmkv.ts
+│   │   ├── queryClient.ts
 │   │   └── sentry.ts
 │   ├── types/                    # TypeScript types
 │   │   ├── api.ts
@@ -183,6 +247,8 @@ my-app/
 │   ├── fonts/
 │   ├── images/
 │   └── icons/
+├── docs/                         # Documentation
+│   └── PAYMENT_INTEGRATION.md    # Payment setup guide
 ├── .env.local.example            # Environment variables template
 ├── .env.production.example
 ├── app.json                      # Expo configuration
