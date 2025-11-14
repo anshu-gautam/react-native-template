@@ -12,6 +12,7 @@
     "storybook:generate": "sb-rn-get-stories",
     "generate:component": "node scripts/generate-component.js",
     "generate:screen": "node scripts/generate-screen.js",
+    "generate:icons": "node scripts/generate-icons.js",
     "lint": "biome lint .",
     "format": "biome format --write .",
     "check": "biome check --write .",
