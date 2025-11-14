@@ -7,7 +7,21 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "ignore": ["node_modules", ".expo", "dist", "build", "android", "ios", ".git"]
+    "ignore": [
+      "node_modules",
+      ".expo",
+      "dist",
+      "build",
+      "android",
+      "ios",
+      ".git",
+      "babel.config.js",
+      "jest.setup.js",
+      "jest.config.js",
+      "jest-setup.js",
+      "app/api/**/*.ts",
+      "scripts/**/*.js"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -112,6 +126,20 @@
       "bracketSameLine": false,
       "quoteStyle": "single",
       "attributePosition": "auto"
-    }
+    },
+    "globals": [
+      "jest",
+      "describe",
+      "it",
+      "expect",
+      "beforeEach",
+      "afterEach",
+      "beforeAll",
+      "afterAll",
+      "test",
+      "__DEV__",
+      "React",
+      "JSX"
+    ]
   }
 }

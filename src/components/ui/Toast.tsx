@@ -4,8 +4,10 @@
  * Displays toast notifications with animations and styling
  */
 
+import { useToast } from '@/hooks/useToast';
+import type { Toast as ToastType } from '@/services/toast';
 import { useEffect } from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -14,8 +16,6 @@ import Animated, {
   runOnJS,
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import type { Toast as ToastType } from '@/services/toast';
-import { useToast } from '@/hooks/useToast';
 
 const TOAST_COLORS = {
   success: {
@@ -77,13 +77,9 @@ function ToastItem({ toast, onHide }: ToastItemProps) {
   const colors = TOAST_COLORS[toast.type];
 
   const handlePress = () => {
-    translateY.value = withSpring(
-      toast.position === 'top' ? -100 : 100,
-      { damping: 15 },
-      () => {
-        runOnJS(onHide)(toast.id);
-      }
-    );
+    translateY.value = withSpring(toast.position === 'top' ? -100 : 100, { damping: 15 }, () => {
+      runOnJS(onHide)(toast.id);
+    });
     opacity.value = withTiming(0, { duration: 200 });
   };
 
@@ -113,11 +109,7 @@ export function ToastContainer() {
       {/* Top toasts */}
       {topToasts.length > 0 && (
         <View
-          style={[
-            styles.container,
-            styles.topContainer,
-            { top: insets.top + 8 },
-          ]}
+          style={[styles.container, styles.topContainer, { top: insets.top + 8 }]}
           pointerEvents="box-none"
         >
           {topToasts.map((toast) => (
@@ -129,11 +121,7 @@ export function ToastContainer() {
       {/* Bottom toasts */}
       {bottomToasts.length > 0 && (
         <View
-          style={[
-            styles.container,
-            styles.bottomContainer,
-            { bottom: insets.bottom + 8 },
-          ]}
+          style={[styles.container, styles.bottomContainer, { bottom: insets.bottom + 8 }]}
           pointerEvents="box-none"
         >
           {bottomToasts.map((toast) => (

@@ -4,14 +4,14 @@
  * A reusable, customizable button component
  */
 
-import React from 'react';
+import type React from 'react';
 import {
-  TouchableOpacity,
-  Text,
-  StyleSheet,
   ActivityIndicator,
-  ViewStyle,
-  TextStyle,
+  StyleSheet,
+  Text,
+  type TextStyle,
+  TouchableOpacity,
+  type ViewStyle,
 } from 'react-native';
 
 export interface ButtonProps {
@@ -71,10 +71,7 @@ export const Button: React.FC<ButtonProps> = ({
       activeOpacity={0.7}
     >
       {loading ? (
-        <ActivityIndicator
-          color={variant === 'outline' ? '#007AFF' : '#FFFFFF'}
-          size="small"
-        />
+        <ActivityIndicator color={variant === 'outline' ? '#007AFF' : '#FFFFFF'} size="small" />
       ) : (
         <Text style={textStyles}>{title}</Text>
       )}

@@ -4,22 +4,18 @@
  * A beautiful onboarding flow with swipeable slides
  */
 
-import { useState, useRef } from 'react';
+import { useRef, useState } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
   Dimensions,
   FlatList,
-  Pressable,
-  type NativeSyntheticEvent,
   type NativeScrollEvent,
+  type NativeSyntheticEvent,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native';
-import Animated, {
-  useAnimatedStyle,
-  interpolate,
-  Extrapolate,
-} from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, interpolate, Extrapolate } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -132,12 +128,7 @@ export function OnboardingCarousel({
   };
 
   const renderSlide = ({ item }: { item: OnboardingSlide }) => (
-    <View
-      style={[
-        styles.slide,
-        { backgroundColor: item.backgroundColor || '#ffffff' },
-      ]}
-    >
+    <View style={[styles.slide, { backgroundColor: item.backgroundColor || '#ffffff' }]}>
       {item.icon && <View style={styles.iconContainer}>{item.icon}</View>}
       <Text style={styles.title}>{item.title}</Text>
       <Text style={styles.description}>{item.description}</Text>
@@ -148,10 +139,7 @@ export function OnboardingCarousel({
     <View style={styles.container}>
       {/* Skip button */}
       {showSkip && !isLastSlide && onSkip && (
-        <Pressable
-          style={[styles.skipButton, { top: insets.top + 16 }]}
-          onPress={onSkip}
-        >
+        <Pressable style={[styles.skipButton, { top: insets.top + 16 }]} onPress={onSkip}>
           <Text style={styles.skipText}>Skip</Text>
         </Pressable>
       )}
@@ -174,25 +162,16 @@ export function OnboardingCarousel({
         {/* Pagination dots */}
         <View style={styles.pagination}>
           {slides.map((_, index) => (
-            <PaginationDot
-              key={`dot-${index}`}
-              index={index}
-              activeIndex={activeIndex}
-            />
+            <PaginationDot key={`dot-${index}`} index={index} activeIndex={activeIndex} />
           ))}
         </View>
 
         {/* Next/Get Started button */}
         <Pressable
-          style={({ pressed }) => [
-            styles.nextButton,
-            pressed && styles.buttonPressed,
-          ]}
+          style={({ pressed }) => [styles.nextButton, pressed && styles.buttonPressed]}
           onPress={handleNext}
         >
-          <Text style={styles.nextButtonText}>
-            {isLastSlide ? finalButtonText : 'Next'}
-          </Text>
+          <Text style={styles.nextButtonText}>{isLastSlide ? finalButtonText : 'Next'}</Text>
         </Pressable>
       </View>
     </View>
@@ -207,18 +186,8 @@ interface PaginationDotProps {
 function PaginationDot({ index, activeIndex }: PaginationDotProps) {
   const animatedStyle = useAnimatedStyle(() => {
     const inputRange = [index - 1, index, index + 1];
-    const scale = interpolate(
-      activeIndex,
-      inputRange,
-      [0.6, 1, 0.6],
-      Extrapolate.CLAMP
-    );
-    const opacity = interpolate(
-      activeIndex,
-      inputRange,
-      [0.4, 1, 0.4],
-      Extrapolate.CLAMP
-    );
+    const scale = interpolate(activeIndex, inputRange, [0.6, 1, 0.6], Extrapolate.CLAMP);
+    const opacity = interpolate(activeIndex, inputRange, [0.4, 1, 0.4], Extrapolate.CLAMP);
 
     return {
       transform: [{ scale }],
@@ -227,13 +196,7 @@ function PaginationDot({ index, activeIndex }: PaginationDotProps) {
   });
 
   return (
-    <Animated.View
-      style={[
-        styles.dot,
-        activeIndex === index && styles.activeDot,
-        animatedStyle,
-      ]}
-    />
+    <Animated.View style={[styles.dot, activeIndex === index && styles.activeDot, animatedStyle]} />
   );
 }
 

@@ -5,23 +5,23 @@
  * Access via shake gesture or dev menu
  */
 
-import React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Application from 'expo-application';
+import Constants from 'expo-constants';
+import * as Device from 'expo-device';
+import type React from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  Switch,
-  Pressable,
   Alert,
   Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Switch,
+  Text,
+  View,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import * as Application from 'expo-application';
-import * as Device from 'expo-device';
-import Constants from 'expo-constants';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useMMKVString } from 'react-native-mmkv';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export interface DebugMenuProps {
   /** Callback when menu is closed */
@@ -38,39 +38,31 @@ export const DebugMenu: React.FC<DebugMenuProps> = ({ onClose }) => {
   const bundleId = Application.applicationId || 'unknown';
 
   const clearAsyncStorage = async () => {
-    Alert.alert(
-      'Clear AsyncStorage',
-      'This will delete all cached data. Continue?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Clear',
-          style: 'destructive',
-          onPress: async () => {
-            await AsyncStorage.clear();
-            Alert.alert('Success', 'AsyncStorage cleared');
-          },
+    Alert.alert('Clear AsyncStorage', 'This will delete all cached data. Continue?', [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Clear',
+        style: 'destructive',
+        onPress: async () => {
+          await AsyncStorage.clear();
+          Alert.alert('Success', 'AsyncStorage cleared');
         },
-      ]
-    );
+      },
+    ]);
   };
 
   const clearMMKV = () => {
-    Alert.alert(
-      'Clear MMKV Storage',
-      'This will delete all MMKV data. Continue?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Clear',
-          style: 'destructive',
-          onPress: () => {
-            // Clear MMKV storage
-            Alert.alert('Success', 'MMKV storage cleared');
-          },
+    Alert.alert('Clear MMKV Storage', 'This will delete all MMKV data. Continue?', [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Clear',
+        style: 'destructive',
+        onPress: () => {
+          // Clear MMKV storage
+          Alert.alert('Success', 'MMKV storage cleared');
         },
-      ]
-    );
+      },
+    ]);
   };
 
   const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
@@ -118,20 +110,14 @@ export const DebugMenu: React.FC<DebugMenuProps> = ({ onClose }) => {
           <InfoRow label="Build Number" value={buildNumber} />
           <InfoRow label="Bundle ID" value={bundleId} />
           <InfoRow label="Expo SDK" value={Constants.expoConfig?.sdkVersion || 'Unknown'} />
-          <InfoRow
-            label="Environment"
-            value={__DEV__ ? 'Development' : 'Production'}
-          />
+          <InfoRow label="Environment" value={__DEV__ ? 'Development' : 'Production'} />
         </Section>
 
         {/* Device Info */}
         <Section title="Device Information">
           <InfoRow label="Device" value={Device.modelName || 'Unknown'} />
           <InfoRow label="OS" value={`${Platform.OS} ${Platform.Version}`} />
-          <InfoRow
-            label="Device Type"
-            value={Device.isDevice ? 'Physical Device' : 'Simulator'}
-          />
+          <InfoRow label="Device Type" value={Device.isDevice ? 'Physical Device' : 'Simulator'} />
         </Section>
 
         {/* Feature Flags */}
@@ -152,10 +138,7 @@ export const DebugMenu: React.FC<DebugMenuProps> = ({ onClose }) => {
         <Section title="API Configuration">
           <View style={styles.apiButtons}>
             <Pressable
-              style={[
-                styles.apiButton,
-                apiEndpoint === 'production' && styles.apiButtonActive,
-              ]}
+              style={[styles.apiButton, apiEndpoint === 'production' && styles.apiButtonActive]}
               onPress={() => setApiEndpoint('production')}
             >
               <Text
@@ -168,10 +151,7 @@ export const DebugMenu: React.FC<DebugMenuProps> = ({ onClose }) => {
               </Text>
             </Pressable>
             <Pressable
-              style={[
-                styles.apiButton,
-                apiEndpoint === 'staging' && styles.apiButtonActive,
-              ]}
+              style={[styles.apiButton, apiEndpoint === 'staging' && styles.apiButtonActive]}
               onPress={() => setApiEndpoint('staging')}
             >
               <Text
@@ -184,10 +164,7 @@ export const DebugMenu: React.FC<DebugMenuProps> = ({ onClose }) => {
               </Text>
             </Pressable>
             <Pressable
-              style={[
-                styles.apiButton,
-                apiEndpoint === 'local' && styles.apiButtonActive,
-              ]}
+              style={[styles.apiButton, apiEndpoint === 'local' && styles.apiButtonActive]}
               onPress={() => setApiEndpoint('local')}
             >
               <Text
@@ -214,17 +191,10 @@ export const DebugMenu: React.FC<DebugMenuProps> = ({ onClose }) => {
 
         {/* Environment Variables */}
         <Section title="Environment Variables">
-          <InfoRow
-            label="API URL"
-            value={process.env.EXPO_PUBLIC_API_URL || 'Not set'}
-          />
+          <InfoRow label="API URL" value={process.env.EXPO_PUBLIC_API_URL || 'Not set'} />
           <InfoRow
             label="Clerk Key"
-            value={
-              process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY
-                ? 'Set ✓'
-                : 'Not set'
-            }
+            value={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY ? 'Set ✓' : 'Not set'}
           />
           <InfoRow
             label="Supabase URL"

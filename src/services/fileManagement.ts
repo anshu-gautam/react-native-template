@@ -177,7 +177,8 @@ export async function downloadFile(
           const progressData: DownloadProgress = {
             totalBytesWritten: downloadProgress.totalBytesWritten,
             totalBytesExpectedToWrite: downloadProgress.totalBytesExpectedToWrite,
-            progress: downloadProgress.totalBytesWritten / downloadProgress.totalBytesExpectedToWrite,
+            progress:
+              downloadProgress.totalBytesWritten / downloadProgress.totalBytesExpectedToWrite,
           };
           options.onProgress?.(progressData);
         }

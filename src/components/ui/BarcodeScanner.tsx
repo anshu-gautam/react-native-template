@@ -4,14 +4,14 @@
  * Full-screen barcode/QR code scanner with camera preview
  */
 
-import { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
-import { BarCodeScanner, type BarCodeScannerResult } from 'expo-barcode-scanner';
 import {
-  requestScannerPermission,
-  hasScannerPermission,
   type ScanResult,
+  hasScannerPermission,
+  requestScannerPermission,
 } from '@/services/scanner';
+import { BarCodeScanner, type BarCodeScannerResult } from 'expo-barcode-scanner';
+import { useEffect, useState } from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 interface BarcodeScannerProps {
   /**
@@ -93,9 +93,7 @@ export function BarcodeScanner({
     return (
       <View style={styles.container}>
         <Text style={styles.text}>No access to camera</Text>
-        <Text style={styles.subtext}>
-          Please grant camera permission in your device settings
-        </Text>
+        <Text style={styles.subtext}>Please grant camera permission in your device settings</Text>
         {onClose && (
           <Pressable style={styles.closeButton} onPress={onClose}>
             <Text style={styles.closeButtonText}>Close</Text>

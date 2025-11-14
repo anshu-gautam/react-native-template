@@ -8,9 +8,9 @@
  * - Frame drops
  */
 
+import * as Sentry from '@sentry/react-native';
 import React from 'react';
 import { InteractionManager } from 'react-native';
-import * as Sentry from '@sentry/react-native';
 
 export interface PerformanceMetric {
   name: string;
@@ -175,9 +175,7 @@ class PerformanceMonitor {
    * Get slowest screens
    */
   getSlowestScreens(limit = 5): ScreenMetrics[] {
-    return [...this.screenMetrics]
-      .sort((a, b) => b.renderTime - a.renderTime)
-      .slice(0, limit);
+    return [...this.screenMetrics].sort((a, b) => b.renderTime - a.renderTime).slice(0, limit);
   }
 
   /**

@@ -9,9 +9,9 @@
  */
 
 import { Platform } from 'react-native';
+import type { CustomerInfo } from 'react-native-purchases';
 import * as RevenueCat from './revenueCat';
 import * as Stripe from './stripe';
-import type { CustomerInfo } from 'react-native-purchases';
 
 export type PaymentMethod = 'iap' | 'stripe';
 
@@ -173,9 +173,7 @@ export async function hasActiveSubscription(): Promise<boolean> {
 
   // For web, check via your backend API
   try {
-    const response = await fetch(
-      `${process.env.EXPO_PUBLIC_API_URL}/api/subscription/status`
-    );
+    const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/subscription/status`);
     const data = await response.json();
     return data.isActive || false;
   } catch (error) {
@@ -205,9 +203,7 @@ export async function getSubscriptionStatus(): Promise<{
 
   // For web, check via your backend
   try {
-    const response = await fetch(
-      `${process.env.EXPO_PUBLIC_API_URL}/api/subscription/status`
-    );
+    const response = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/api/subscription/status`);
     const data = await response.json();
     return {
       isActive: data.isActive || false,

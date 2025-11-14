@@ -5,8 +5,8 @@
  * Supports both hard (required) and soft (optional) updates
  */
 
-import { Linking, Platform } from 'react-native';
 import Constants from 'expo-constants';
+import { Linking, Platform } from 'react-native';
 
 export interface VersionInfo {
   /**
@@ -50,8 +50,8 @@ export interface VersionInfo {
  * Returns: 1 if v1 > v2, -1 if v1 < v2, 0 if equal
  */
 function compareVersions(v1: string, v2: string): number {
-  const parts1 = v1.split('.').map((n) => parseInt(n, 10));
-  const parts2 = v2.split('.').map((n) => parseInt(n, 10));
+  const parts1 = v1.split('.').map((n) => Number.parseInt(n, 10));
+  const parts2 = v2.split('.').map((n) => Number.parseInt(n, 10));
 
   for (let i = 0; i < Math.max(parts1.length, parts2.length); i++) {
     const num1 = parts1[i] || 0;

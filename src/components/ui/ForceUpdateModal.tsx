@@ -5,8 +5,8 @@
  * Supports both required and optional updates
  */
 
-import { Modal, View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
 import type { VersionInfo } from '@/services/forceUpdate';
+import { Modal, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 interface ForceUpdateModalProps {
   /**
@@ -81,21 +81,14 @@ export function ForceUpdateModal({
 }: ForceUpdateModalProps) {
   const isRequired = versionInfo.updateRequired;
 
-  const defaultTitle = isRequired
-    ? 'Update Required'
-    : 'Update Available';
+  const defaultTitle = isRequired ? 'Update Required' : 'Update Available';
 
   const defaultMessage = isRequired
     ? `A new version of the app is available. Please update to version ${versionInfo.latestVersion} to continue.`
     : `Version ${versionInfo.latestVersion} is now available. Update now to get the latest features and improvements.`;
 
   return (
-    <Modal
-      visible={visible}
-      transparent
-      animationType="fade"
-      statusBarTranslucent
-    >
+    <Modal visible={visible} transparent animationType="fade" statusBarTranslucent>
       <View style={styles.backdrop}>
         <View style={styles.container}>
           <Text style={styles.title}>{title || defaultTitle}</Text>
@@ -106,28 +99,19 @@ export function ForceUpdateModal({
             {versionInfo.releaseNotes && (
               <View style={styles.releaseNotes}>
                 <Text style={styles.releaseNotesTitle}>What&apos;s New:</Text>
-                <Text style={styles.releaseNotesText}>
-                  {versionInfo.releaseNotes}
-                </Text>
+                <Text style={styles.releaseNotesText}>{versionInfo.releaseNotes}</Text>
               </View>
             )}
 
             <View style={styles.versionInfo}>
-              <Text style={styles.versionText}>
-                Current Version: {versionInfo.currentVersion}
-              </Text>
-              <Text style={styles.versionText}>
-                Latest Version: {versionInfo.latestVersion}
-              </Text>
+              <Text style={styles.versionText}>Current Version: {versionInfo.currentVersion}</Text>
+              <Text style={styles.versionText}>Latest Version: {versionInfo.latestVersion}</Text>
             </View>
           </ScrollView>
 
           <View style={styles.buttons}>
             <Pressable
-              style={({ pressed }) => [
-                styles.updateButton,
-                pressed && styles.buttonPressed,
-              ]}
+              style={({ pressed }) => [styles.updateButton, pressed && styles.buttonPressed]}
               onPress={onUpdate}
             >
               <Text style={styles.updateButtonText}>Update Now</Text>
@@ -135,10 +119,7 @@ export function ForceUpdateModal({
 
             {!isRequired && onLater && (
               <Pressable
-                style={({ pressed }) => [
-                  styles.laterButton,
-                  pressed && styles.buttonPressed,
-                ]}
+                style={({ pressed }) => [styles.laterButton, pressed && styles.buttonPressed]}
                 onPress={onLater}
               >
                 <Text style={styles.laterButtonText}>Later</Text>

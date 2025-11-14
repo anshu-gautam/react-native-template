@@ -5,14 +5,14 @@
  * Provides a swipeable bottom sheet for modal content
  */
 
-import { useMemo, forwardRef, useCallback } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
 import GorhomBottomSheet, {
   BottomSheetBackdrop,
   BottomSheetView,
   type BottomSheetProps as GorhomBottomSheetProps,
   type BottomSheetBackdropProps,
 } from '@gorhom/bottom-sheet';
+import { forwardRef, useCallback, useMemo } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
 interface BottomSheetProps extends Partial<GorhomBottomSheetProps> {
   /**
@@ -83,10 +83,7 @@ export const BottomSheet = forwardRef<GorhomBottomSheet, BottomSheetProps>(
     },
     ref
   ) => {
-    const snapPoints = useMemo(
-      () => snapPointsProp || ['25%', '50%', '90%'],
-      [snapPointsProp]
-    );
+    const snapPoints = useMemo(() => snapPointsProp || ['25%', '50%', '90%'], [snapPointsProp]);
 
     const renderBackdrop = useCallback(
       (backdropProps: BottomSheetBackdropProps) => (

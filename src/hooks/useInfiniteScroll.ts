@@ -4,7 +4,7 @@
  * Hook for implementing infinite scroll / pagination in FlatList
  */
 
-import { useState, useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 interface UseInfiniteScrollOptions<T> {
   /**

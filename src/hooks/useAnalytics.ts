@@ -4,17 +4,17 @@
  * Provides easy access to analytics functions within React components
  */
 
-import { useEffect } from 'react';
 import {
+  AnalyticsEvents,
+  getFeatureFlagValue,
+  identifyUser,
+  isFeatureFlagEnabled,
+  resetUser,
+  setUserProperties,
   trackEvent,
   trackScreenView,
-  identifyUser,
-  setUserProperties,
-  resetUser,
-  isFeatureFlagEnabled,
-  getFeatureFlagValue,
-  AnalyticsEvents,
 } from '@/services/analytics';
+import { useEffect } from 'react';
 
 /**
  * Hook to track analytics events
@@ -36,10 +36,7 @@ export function useAnalytics() {
  * @param screenName Name of the screen
  * @param properties Optional screen properties
  */
-export function useScreenTracking(
-  screenName: string,
-  properties?: Record<string, unknown>
-) {
+export function useScreenTracking(screenName: string, properties?: Record<string, unknown>) {
   useEffect(() => {
     trackScreenView(screenName, properties);
   }, [screenName, properties]);
@@ -50,10 +47,7 @@ export function useScreenTracking(
  * @param eventName Event name to track
  * @param properties Event properties
  */
-export function useEventTracking(
-  eventName: string,
-  properties?: Record<string, unknown>
-) {
+export function useEventTracking(eventName: string, properties?: Record<string, unknown>) {
   useEffect(() => {
     trackEvent(eventName, properties);
   }, [eventName, properties]);

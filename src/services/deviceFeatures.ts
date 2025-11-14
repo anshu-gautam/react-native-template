@@ -10,12 +10,12 @@
  * - Device information (battery, storage, network)
  */
 
+import * as Battery from 'expo-battery';
+import * as Calendar from 'expo-calendar';
 import * as Clipboard from 'expo-clipboard';
 import * as Contacts from 'expo-contacts';
-import * as Calendar from 'expo-calendar';
-import * as Battery from 'expo-battery';
-import * as Network from 'expo-network';
 import * as Device from 'expo-device';
+import * as Network from 'expo-network';
 
 // ============= CLIPBOARD =============
 

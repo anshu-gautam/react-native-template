@@ -74,10 +74,7 @@ export const DeepLinkRoutes = {
  * @param params Optional query parameters
  * @returns Deep link URL
  */
-export function generateDeepLink(
-  route: string,
-  params?: Record<string, string>
-): string {
+export function generateDeepLink(route: string, params?: Record<string, string>): string {
   const baseUrl = DEEP_LINK_PREFIXES[0];
   const url = new URL(route, baseUrl);
 

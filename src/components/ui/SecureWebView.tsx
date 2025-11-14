@@ -4,18 +4,14 @@
  * A secure WebView wrapper with JavaScript bridge and common features
  */
 
-import { useRef, useState, useCallback } from 'react';
-import { View, StyleSheet, ActivityIndicator, type ViewStyle } from 'react-native';
+import { NATIVE_BRIDGE_SCRIPT, type WebMessage, parseWebMessage } from '@/services/webview';
+import { useCallback, useRef, useState } from 'react';
+import { ActivityIndicator, StyleSheet, View, type ViewStyle } from 'react-native';
 import WebView, {
   type WebViewProps,
   type WebViewNavigation,
   type WebViewMessageEvent,
 } from 'react-native-webview';
-import {
-  NATIVE_BRIDGE_SCRIPT,
-  parseWebMessage,
-  type WebMessage,
-} from '@/services/webview';
 
 interface SecureWebViewProps extends Partial<WebViewProps> {
   /**

@@ -33,18 +33,14 @@ export function setupGlobalErrorHandlers(): void {
 
     // Show alert for fatal errors in production
     if (isFatal && !__DEV__) {
-      Alert.alert(
-        'Unexpected Error',
-        'An unexpected error occurred. Please restart the app.',
-        [
-          {
-            text: 'OK',
-            onPress: () => {
-              // In a real app, you might want to restart or force quit here
-            },
+      Alert.alert('Unexpected Error', 'An unexpected error occurred. Please restart the app.', [
+        {
+          text: 'OK',
+          onPress: () => {
+            // In a real app, you might want to restart or force quit here
           },
-        ]
-      );
+        },
+      ]);
     }
 
     // Call default handler
@@ -55,9 +51,7 @@ export function setupGlobalErrorHandlers(): void {
 
   // Handle unhandled promise rejections
   const handleUnhandledRejection = (event: PromiseRejectionEvent): void => {
-    const error = event.reason instanceof Error
-      ? event.reason
-      : new Error(String(event.reason));
+    const error = event.reason instanceof Error ? event.reason : new Error(String(event.reason));
 
     // Report to Sentry
     Sentry.captureException(error, {

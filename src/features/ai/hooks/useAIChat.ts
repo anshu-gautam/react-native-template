@@ -6,8 +6,8 @@
  * Degrades gracefully when offline.
  */
 
-import { useState, useCallback, useRef } from 'react';
 import { useNetInfo } from '@react-native-community/netinfo';
+import { useCallback, useRef, useState } from 'react';
 import type { ChatRequest } from '../schemas';
 
 export interface Message {

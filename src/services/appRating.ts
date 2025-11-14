@@ -11,9 +11,9 @@
  * - Native iOS/Android rating dialogs
  */
 
-import * as StoreReview from 'expo-store-review';
-import { Platform, Linking } from 'react-native';
 import { storage } from '@/lib/mmkv';
+import * as StoreReview from 'expo-store-review';
+import { Linking, Platform } from 'react-native';
 
 const STORAGE_KEYS = {
   LAST_PROMPT_DATE: 'app_rating_last_prompt',

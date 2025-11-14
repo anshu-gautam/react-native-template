@@ -1,12 +1,12 @@
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import {
+  cancelAllNotifications,
+  clearBadge,
+  getBadgeCount,
   registerForPushNotificationsAsync,
   scheduleLocalNotification,
-  cancelAllNotifications,
-  getBadgeCount,
   setBadgeCount,
-  clearBadge,
 } from '../notifications';
 
 // Mock modules
@@ -89,7 +89,10 @@ describe('Notification Service', () => {
     it('should schedule a notification with custom data and trigger', async () => {
       (Notifications.scheduleNotificationAsync as jest.Mock).mockResolvedValue('notification-id');
       const customData = { key: 'value' };
-      const trigger = { type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL, seconds: 60 } as Notifications.TimeIntervalTriggerInput;
+      const trigger = {
+        type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+        seconds: 60,
+      } as Notifications.TimeIntervalTriggerInput;
 
       await scheduleLocalNotification('Test Title', 'Test Body', customData, trigger);
 

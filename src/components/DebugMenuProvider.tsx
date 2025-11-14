@@ -5,10 +5,10 @@
  * Only renders in development mode
  */
 
-import React from 'react';
+import type React from 'react';
 import { Modal } from 'react-native';
-import { DebugMenu } from './DebugMenu';
 import { useDebugMenu } from '../hooks/useDebugMenu';
+import { DebugMenu } from './DebugMenu';
 
 export interface DebugMenuProviderProps {
   children: React.ReactNode;

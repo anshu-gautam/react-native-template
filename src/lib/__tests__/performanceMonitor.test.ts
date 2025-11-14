@@ -69,9 +69,9 @@ describe('PerformanceMonitor', () => {
         throw new Error('Test error');
       };
 
-      await expect(
-        performanceMonitor.measureAsync('failing-op', failingFn)
-      ).rejects.toThrow('Test error');
+      await expect(performanceMonitor.measureAsync('failing-op', failingFn)).rejects.toThrow(
+        'Test error'
+      );
 
       const metrics = performanceMonitor.getMetrics();
       expect(metrics).toHaveLength(1);

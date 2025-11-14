@@ -2,8 +2,8 @@
  * Update Manager Tests
  */
 
-import { updateManager } from '../updateManager';
 import * as Updates from 'expo-updates';
+import { updateManager } from '../updateManager';
 
 // Mock Sentry
 jest.mock('@sentry/react-native', () => ({

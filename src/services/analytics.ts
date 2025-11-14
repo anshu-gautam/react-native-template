@@ -148,9 +148,7 @@ export async function isFeatureFlagEnabled(flagKey: string): Promise<boolean> {
  * @param flagKey The feature flag key
  * @returns The flag value
  */
-export async function getFeatureFlagValue(
-  flagKey: string
-): Promise<string | boolean | undefined> {
+export async function getFeatureFlagValue(flagKey: string): Promise<string | boolean | undefined> {
   if (!posthogClient) {
     console.warn('PostHog not initialized. Call initializePostHog() first.');
     return undefined;

@@ -11,8 +11,8 @@
  * - Haptic feedback integration
  */
 
-import { Platform } from 'react-native';
 import * as Haptics from 'expo-haptics';
+import { Platform } from 'react-native';
 
 export type ToastType = 'success' | 'error' | 'warning' | 'info';
 export type ToastPosition = 'top' | 'bottom';

@@ -2,8 +2,8 @@
  * Offline Queue Tests
  */
 
-import { offlineQueue, withOfflineQueue } from '../offlineQueue';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { offlineQueue, withOfflineQueue } from '../offlineQueue';
 
 // Mock Sentry
 jest.mock('@sentry/react-native', () => ({
@@ -18,13 +18,17 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
 }));
 
 // Mock NetInfo
+const mockNetInfoState = {
+  isConnected: false, // Start as offline for tests
+};
+
 jest.mock('@react-native-community/netinfo', () => ({
-  addEventListener: jest.fn(() => jest.fn()),
-  fetch: jest.fn(() =>
-    Promise.resolve({
-      isConnected: true,
-    })
-  ),
+  addEventListener: jest.fn((callback) => {
+    // Call callback immediately with current state
+    callback(mockNetInfoState);
+    return jest.fn();
+  }),
+  fetch: jest.fn(() => Promise.resolve(mockNetInfoState)),
 }));
 
 describe('OfflineQueue', () => {

@@ -5,23 +5,19 @@
  * Uses react-native-reanimated for smooth animations
  */
 
-import { useState, useRef } from 'react';
+import { useRef, useState } from 'react';
 import {
-  View,
-  Image,
-  StyleSheet,
   Dimensions,
   FlatList,
-  type ViewStyle,
+  Image,
   type ImageStyle,
-  type NativeSyntheticEvent,
   type NativeScrollEvent,
+  type NativeSyntheticEvent,
+  StyleSheet,
+  View,
+  type ViewStyle,
 } from 'react-native';
-import Animated, {
-  useAnimatedStyle,
-  interpolate,
-  Extrapolate,
-} from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, interpolate, Extrapolate } from 'react-native-reanimated';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -157,11 +153,7 @@ export function ImageCarousel({
     <View style={[styles.itemContainer, { width, height }]}>
       <Image
         source={{ uri: item.uri }}
-        style={[
-          styles.image,
-          { width, height, borderRadius },
-          imageStyle,
-        ]}
+        style={[styles.image, { width, height, borderRadius }, imageStyle]}
         resizeMode="cover"
       />
     </View>
@@ -187,11 +179,7 @@ export function ImageCarousel({
       {showPagination && images.length > 1 && (
         <View style={styles.pagination}>
           {images.map((_, index) => (
-            <PaginationDot
-              key={`dot-${index}`}
-              index={index}
-              activeIndex={activeIndex}
-            />
+            <PaginationDot key={`dot-${index}`} index={index} activeIndex={activeIndex} />
           ))}
         </View>
       )}
@@ -206,19 +194,9 @@ interface PaginationDotProps {
 
 function PaginationDot({ index, activeIndex }: PaginationDotProps) {
   const animatedStyle = useAnimatedStyle(() => {
-    const scale = interpolate(
-      Math.abs(activeIndex - index),
-      [0, 1],
-      [1, 0.6],
-      Extrapolate.CLAMP
-    );
+    const scale = interpolate(Math.abs(activeIndex - index), [0, 1], [1, 0.6], Extrapolate.CLAMP);
 
-    const opacity = interpolate(
-      Math.abs(activeIndex - index),
-      [0, 1],
-      [1, 0.4],
-      Extrapolate.CLAMP
-    );
+    const opacity = interpolate(Math.abs(activeIndex - index), [0, 1], [1, 0.4], Extrapolate.CLAMP);
 
     return {
       transform: [{ scale }],
@@ -227,13 +205,7 @@ function PaginationDot({ index, activeIndex }: PaginationDotProps) {
   });
 
   return (
-    <Animated.View
-      style={[
-        styles.dot,
-        activeIndex === index && styles.activeDot,
-        animatedStyle,
-      ]}
-    />
+    <Animated.View style={[styles.dot, activeIndex === index && styles.activeDot, animatedStyle]} />
   );
 }
 

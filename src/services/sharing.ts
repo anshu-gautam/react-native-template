@@ -11,9 +11,9 @@
  * - Social media deep links (WhatsApp, Twitter, etc.)
  */
 
-import * as Sharing from 'expo-sharing';
 import * as FileSystem from 'expo-file-system/legacy';
-import { Platform, Linking } from 'react-native';
+import * as Sharing from 'expo-sharing';
+import { Linking, Platform } from 'react-native';
 
 export interface ShareOptions {
   title?: string;
@@ -59,9 +59,7 @@ export async function shareContent(options: ShareOptions): Promise<boolean> {
 
     // For native platforms, we need to share a file
     // So we'll create a temporary text file with the content
-    const content = [options.title, options.message, options.url]
-      .filter(Boolean)
-      .join('\n\n');
+    const content = [options.title, options.message, options.url].filter(Boolean).join('\n\n');
 
     if (!content) {
       console.warn('No content to share');
@@ -115,10 +113,7 @@ export async function shareFile(options: ShareFileOptions): Promise<boolean> {
  * @param imageUri URI of the image file
  * @param dialogTitle Optional dialog title
  */
-export async function shareImage(
-  imageUri: string,
-  dialogTitle?: string
-): Promise<boolean> {
+export async function shareImage(imageUri: string, dialogTitle?: string): Promise<boolean> {
   return await shareFile({
     fileUri: imageUri,
     mimeType: 'image/*',

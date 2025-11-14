@@ -5,7 +5,7 @@
  * Works with ScrollView, FlatList, and SectionList
  */
 
-import { useState, useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 interface UsePullToRefreshOptions {
   /**

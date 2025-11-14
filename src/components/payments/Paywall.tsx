@@ -4,24 +4,24 @@
  * Beautiful subscription paywall with both IAP and web payment options
  */
 
-import { useState, useEffect } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
-  ActivityIndicator,
-  ScrollView,
-  Platform,
-} from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import {
+  type PaymentMethod,
+  type SubscriptionPlan,
   getSubscriptionPlans,
   purchaseSubscription,
   restorePurchases,
-  type SubscriptionPlan,
-  type PaymentMethod,
 } from '@/services/payments';
+import { useEffect, useState } from 'react';
+import {
+  ActivityIndicator,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface PaywallProps {
   /**
@@ -95,8 +95,7 @@ export function Paywall({
     const availablePlans = await getSubscriptionPlans();
     setPlans(availablePlans);
     // Auto-select the yearly plan (usually best value)
-    const defaultPlan =
-      availablePlans.find((p) => p.period === 'yearly') || availablePlans[0];
+    const defaultPlan = availablePlans.find((p) => p.period === 'yearly') || availablePlans[0];
     setSelectedPlan(defaultPlan);
     setLoading(false);
   };
@@ -156,9 +155,7 @@ export function Paywall({
         {/* Header */}
         <View style={styles.header}>
           <Text style={styles.title}>Upgrade to Premium</Text>
-          <Text style={styles.subtitle}>
-            Unlock all features and get the most out of the app
-          </Text>
+          <Text style={styles.subtitle}>Unlock all features and get the most out of the app</Text>
         </View>
 
         {/* Features */}
@@ -183,10 +180,7 @@ export function Paywall({
           {plans.map((plan) => (
             <Pressable
               key={plan.id}
-              style={[
-                styles.planCard,
-                selectedPlan?.id === plan.id && styles.planCardSelected,
-              ]}
+              style={[styles.planCard, selectedPlan?.id === plan.id && styles.planCardSelected]}
               onPress={() => setSelectedPlan(plan)}
             >
               {plan.period === 'yearly' && (
@@ -234,11 +228,7 @@ export function Paywall({
 
         {/* Restore Button (iOS/Android only) */}
         {(Platform.OS === 'ios' || Platform.OS === 'android') && (
-          <Pressable
-            style={styles.restoreButton}
-            onPress={handleRestore}
-            disabled={restoring}
-          >
+          <Pressable style={styles.restoreButton} onPress={handleRestore} disabled={restoring}>
             {restoring ? (
               <ActivityIndicator size="small" color="#6b7280" />
             ) : (
@@ -249,9 +239,8 @@ export function Paywall({
 
         {/* Legal */}
         <Text style={styles.legal}>
-          Subscriptions automatically renew unless cancelled at least 24 hours before
-          the end of the current period. Manage your subscription in your account
-          settings.
+          Subscriptions automatically renew unless cancelled at least 24 hours before the end of the
+          current period. Manage your subscription in your account settings.
         </Text>
       </ScrollView>
     </View>

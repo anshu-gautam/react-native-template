@@ -5,9 +5,10 @@
  * Integrates with Sentry for error reporting
  */
 
-import React, { Component, type ReactNode } from 'react';
-import { View, Text, StyleSheet, Pressable, ScrollView, Platform } from 'react-native';
 import * as Sentry from '@sentry/react-native';
+import type React from 'react';
+import { Component, type ReactNode } from 'react';
+import { Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 interface ErrorBoundaryProps {
   /**
@@ -124,8 +125,7 @@ function DefaultErrorFallback({ error, resetError }: DefaultErrorFallbackProps) 
         <Text style={styles.emoji}>😔</Text>
         <Text style={styles.title}>Something went wrong</Text>
         <Text style={styles.message}>
-          We've encountered an unexpected error. The error has been reported and we'll
-          look into it.
+          We've encountered an unexpected error. The error has been reported and we'll look into it.
         </Text>
 
         {__DEV__ && (
@@ -133,17 +133,12 @@ function DefaultErrorFallback({ error, resetError }: DefaultErrorFallbackProps) 
             <Text style={styles.errorTitle}>Error Details (Dev Only):</Text>
             <Text style={styles.errorText}>{error.name}</Text>
             <Text style={styles.errorText}>{error.message}</Text>
-            {error.stack && (
-              <Text style={styles.errorStack}>{error.stack}</Text>
-            )}
+            {error.stack && <Text style={styles.errorStack}>{error.stack}</Text>}
           </ScrollView>
         )}
 
         <Pressable
-          style={({ pressed }) => [
-            styles.button,
-            pressed && styles.buttonPressed,
-          ]}
+          style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
           onPress={resetError}
         >
           <Text style={styles.buttonText}>Try Again</Text>

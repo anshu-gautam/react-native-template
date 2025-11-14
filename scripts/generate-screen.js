@@ -33,7 +33,7 @@ if (!/^[a-z][a-z0-9-]*$/.test(screenName)) {
 // Convert kebab-case to PascalCase for component name
 const componentName = screenName
   .split('-')
-  .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
   .join('');
 
 const screenPath = path.join(process.cwd(), 'app', `(app)`, screenName);

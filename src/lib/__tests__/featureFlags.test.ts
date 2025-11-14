@@ -15,8 +15,8 @@ jest.mock('react-native-mmkv', () => ({
   useMMKVBoolean: jest.fn(() => [undefined, jest.fn()]),
 }));
 
-import { featureFlags } from '../featureFlags';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { featureFlags } from '../featureFlags';
 
 describe('FeatureFlagsManager', () => {
   beforeEach(() => {

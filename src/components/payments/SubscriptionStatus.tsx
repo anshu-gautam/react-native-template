@@ -4,18 +4,9 @@
  * Displays current subscription status and management options
  */
 
-import { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
-  ActivityIndicator,
-} from 'react-native';
-import {
-  getSubscriptionStatus,
-  manageSubscription,
-} from '@/services/payments';
+import { getSubscriptionStatus, manageSubscription } from '@/services/payments';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
 
 interface SubscriptionStatusProps {
   /**
@@ -76,16 +67,11 @@ export function SubscriptionStatus({ onUpgrade }: SubscriptionStatusProps) {
       <View style={styles.container}>
         <View style={styles.card}>
           <Text style={styles.statusTitle}>No Active Subscription</Text>
-          <Text style={styles.statusDescription}>
-            Upgrade to premium to unlock all features
-          </Text>
+          <Text style={styles.statusDescription}>Upgrade to premium to unlock all features</Text>
 
           {onUpgrade && (
             <Pressable
-              style={({ pressed }) => [
-                styles.upgradeButton,
-                pressed && styles.buttonPressed,
-              ]}
+              style={({ pressed }) => [styles.upgradeButton, pressed && styles.buttonPressed]}
               onPress={onUpgrade}
             >
               <Text style={styles.upgradeButtonText}>Upgrade Now</Text>
@@ -105,9 +91,7 @@ export function SubscriptionStatus({ onUpgrade }: SubscriptionStatusProps) {
 
         <Text style={styles.statusTitle}>Premium Subscription</Text>
 
-        {status.plan && (
-          <Text style={styles.planName}>{status.plan}</Text>
-        )}
+        {status.plan && <Text style={styles.planName}>{status.plan}</Text>}
 
         <View style={styles.detailsContainer}>
           <View style={styles.detailRow}>
@@ -122,18 +106,13 @@ export function SubscriptionStatus({ onUpgrade }: SubscriptionStatusProps) {
               <Text style={styles.detailLabel}>
                 {status.willRenew ? 'Renews on:' : 'Expires on:'}
               </Text>
-              <Text style={styles.detailValue}>
-                {formatDate(status.expirationDate)}
-              </Text>
+              <Text style={styles.detailValue}>{formatDate(status.expirationDate)}</Text>
             </View>
           )}
         </View>
 
         <Pressable
-          style={({ pressed }) => [
-            styles.manageButton,
-            pressed && styles.buttonPressed,
-          ]}
+          style={({ pressed }) => [styles.manageButton, pressed && styles.buttonPressed]}
           onPress={handleManage}
           disabled={managing}
         >

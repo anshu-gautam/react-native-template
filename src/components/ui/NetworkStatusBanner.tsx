@@ -5,8 +5,9 @@
  * Automatically hides after a few seconds when back online
  */
 
+import NetInfo from '@react-native-community/netinfo';
 import { useEffect, useState } from 'react';
-import { Text, StyleSheet } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -14,7 +15,6 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import NetInfo from '@react-native-community/netinfo';
 
 interface NetworkStatusBannerProps {
   /**
@@ -97,9 +97,7 @@ export function NetworkStatusBanner({
     <Animated.View
       style={[
         styles.container,
-        position === 'top'
-          ? { top: insets.top }
-          : { bottom: insets.bottom },
+        position === 'top' ? { top: insets.top } : { bottom: insets.bottom },
         { backgroundColor },
         animatedStyle,
       ]}

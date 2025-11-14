@@ -74,9 +74,7 @@ export async function getInitialShortcut(): Promise<QuickActions.Action | null> 
  * @param handler Function to call when shortcut is activated
  * @returns Cleanup function to remove listener
  */
-export function onShortcutAction(
-  handler: (action: QuickActions.Action) => void
-): () => void {
+export function onShortcutAction(handler: (action: QuickActions.Action) => void): () => void {
   const subscription = QuickActions.addListener(handler);
   return () => subscription.remove();
 }

@@ -48,7 +48,7 @@ export const handlers = [
   }),
 
   http.patch(`${API_URL}/user/profile`, async ({ request }) => {
-    const body = await request.json() as Record<string, any>;
+    const body = (await request.json()) as Record<string, any>;
     return HttpResponse.json({
       id: 'user-123',
       ...body,
@@ -101,24 +101,15 @@ export const handlers = [
 
   // ============= Error Scenarios =============
   http.get(`${API_URL}/error/400`, async () => {
-    return HttpResponse.json(
-      { error: 'Bad Request' },
-      { status: 400 }
-    );
+    return HttpResponse.json({ error: 'Bad Request' }, { status: 400 });
   }),
 
   http.get(`${API_URL}/error/401`, async () => {
-    return HttpResponse.json(
-      { error: 'Unauthorized' },
-      { status: 401 }
-    );
+    return HttpResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }),
 
   http.get(`${API_URL}/error/500`, async () => {
-    return HttpResponse.json(
-      { error: 'Internal Server Error' },
-      { status: 500 }
-    );
+    return HttpResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }),
 
   // ============= Network Delay =============

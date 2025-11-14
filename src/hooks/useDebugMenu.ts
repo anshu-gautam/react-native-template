@@ -4,7 +4,7 @@
  * Manages debug menu visibility and shake-to-open functionality
  */
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { DevSettings, Platform } from 'react-native';
 
 export function useDebugMenu() {

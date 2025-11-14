@@ -1,13 +1,13 @@
 import {
-  sleep,
-  debounce,
-  throttle,
-  generateId,
-  pick,
-  omit,
-  groupBy,
-  uniqueBy,
   chunk,
+  debounce,
+  generateId,
+  groupBy,
+  omit,
+  pick,
+  sleep,
+  throttle,
+  uniqueBy,
 } from '../helpers';
 
 describe('Helper Functions', () => {

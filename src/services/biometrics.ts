@@ -111,8 +111,7 @@ export async function storeSensitiveData(
   try {
     await SecureStore.setItemAsync(key, value, {
       requireAuthentication: options?.requireAuthentication ?? true,
-      authenticationPrompt:
-        options?.authenticationPrompt ?? 'Authenticate to save this data',
+      authenticationPrompt: options?.authenticationPrompt ?? 'Authenticate to save this data',
     });
 
     return { success: true };
@@ -139,8 +138,7 @@ export async function retrieveSensitiveData(
   try {
     const value = await SecureStore.getItemAsync(key, {
       requireAuthentication: options?.requireAuthentication ?? true,
-      authenticationPrompt:
-        options?.authenticationPrompt ?? 'Authenticate to access this data',
+      authenticationPrompt: options?.authenticationPrompt ?? 'Authenticate to access this data',
     });
 
     if (value === null) {
@@ -175,14 +173,10 @@ export async function enableBiometricLogin(
   userId: string,
   authToken: string
 ): Promise<{ success: boolean; error?: string }> {
-  return await storeSensitiveData(
-    `biometric_auth_${userId}`,
-    authToken,
-    {
-      requireAuthentication: true,
-      authenticationPrompt: 'Enable biometric login',
-    }
-  );
+  return await storeSensitiveData(`biometric_auth_${userId}`, authToken, {
+    requireAuthentication: true,
+    authenticationPrompt: 'Enable biometric login',
+  });
 }
 
 /**
@@ -192,13 +186,10 @@ export async function enableBiometricLogin(
 export async function loginWithBiometrics(
   userId: string
 ): Promise<{ success: boolean; authToken?: string; error?: string }> {
-  const result = await retrieveSensitiveData(
-    `biometric_auth_${userId}`,
-    {
-      requireAuthentication: true,
-      authenticationPrompt: 'Authenticate to login',
-    }
-  );
+  const result = await retrieveSensitiveData(`biometric_auth_${userId}`, {
+    requireAuthentication: true,
+    authenticationPrompt: 'Authenticate to login',
+  });
 
   if (result.success && result.data) {
     return { success: true, authToken: result.data };

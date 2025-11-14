@@ -5,8 +5,8 @@
  * Opens Stripe Checkout in browser or WebView for subscriptions
  */
 
-import { Linking } from 'react-native';
 import { initPaymentSheet, presentPaymentSheet } from '@stripe/stripe-react-native';
+import { Linking } from 'react-native';
 
 export interface StripeCheckoutOptions {
   /**
@@ -106,7 +106,7 @@ export async function openCheckout(options: StripeCheckoutOptions): Promise<bool
  */
 export async function createPaymentIntent(
   amount: number,
-  currency: string = 'usd',
+  currency = 'usd',
   metadata?: Record<string, string>
 ): Promise<{ clientSecret: string; publishableKey: string } | null> {
   try {
@@ -146,7 +146,7 @@ export async function createPaymentIntent(
  */
 export async function presentPayment(
   amount: number,
-  currency: string = 'usd',
+  currency = 'usd',
   metadata?: Record<string, string>
 ): Promise<{ success: boolean; error?: string }> {
   try {
@@ -193,9 +193,7 @@ function getAppScheme(): string {
  * Create Customer Portal session (for managing subscriptions)
  * Opens Stripe Customer Portal in browser
  */
-export async function openCustomerPortal(
-  customerId: string
-): Promise<boolean> {
+export async function openCustomerPortal(customerId: string): Promise<boolean> {
   try {
     const response = await fetch(
       `${process.env.EXPO_PUBLIC_API_URL}/api/payments/create-portal-session`,
@@ -231,9 +229,7 @@ export async function openCustomerPortal(
 /**
  * Verify payment status (via your backend)
  */
-export async function verifyPayment(
-  paymentIntentId: string
-): Promise<{
+export async function verifyPayment(paymentIntentId: string): Promise<{
   status: 'succeeded' | 'processing' | 'requires_payment_method' | 'failed';
   amount?: number;
   currency?: string;

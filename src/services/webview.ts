@@ -131,9 +131,7 @@ export const CookieManager = {
       httpOnly?: boolean;
     }
   ) => {
-    const expires = options?.expires
-      ? `expires=${options.expires.toUTCString()};`
-      : '';
+    const expires = options?.expires ? `expires=${options.expires.toUTCString()};` : '';
     const domain = options?.domain ? `domain=${options.domain};` : '';
     const path = options?.path ? `path=${options.path};` : 'path=/;';
     const secure = options?.secure ? 'secure;' : '';
@@ -185,11 +183,7 @@ export const LocalStorageManager = {
   /**
    * Set item in localStorage
    */
-  setItem: (
-    webViewRef: React.RefObject<WebView>,
-    key: string,
-    value: string
-  ) => {
+  setItem: (webViewRef: React.RefObject<WebView>, key: string, value: string) => {
     const script = `localStorage.setItem("${key}", "${value}"); true;`;
     webViewRef.current?.injectJavaScript(script);
   },
@@ -197,10 +191,7 @@ export const LocalStorageManager = {
   /**
    * Get item from localStorage
    */
-  getItem: async (
-    webViewRef: React.RefObject<WebView>,
-    key: string
-  ): Promise<string | null> => {
+  getItem: async (webViewRef: React.RefObject<WebView>, key: string): Promise<string | null> => {
     return new Promise((resolve) => {
       const script = `
         (function() {
@@ -238,19 +229,14 @@ export const LocalStorageManager = {
 /**
  * Execute JavaScript in WebView
  */
-export function executeScript(
-  webViewRef: React.RefObject<WebView>,
-  script: string
-): void {
+export function executeScript(webViewRef: React.RefObject<WebView>, script: string): void {
   webViewRef.current?.injectJavaScript(`${script}; true;`);
 }
 
 /**
  * Get current URL from WebView
  */
-export function getCurrentUrl(
-  webViewRef: React.RefObject<WebView>
-): Promise<string> {
+export function getCurrentUrl(webViewRef: React.RefObject<WebView>): Promise<string> {
   return new Promise((resolve) => {
     const script = `
       window.ReactNativeWebView.postMessage(JSON.stringify({

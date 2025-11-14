@@ -7,10 +7,10 @@
  * - Notify users about new versions
  */
 
-import * as Updates from 'expo-updates';
-import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Sentry from '@sentry/react-native';
+import * as Updates from 'expo-updates';
+import { Alert } from 'react-native';
 
 const LAST_UPDATE_CHECK_KEY = '@app/lastUpdateCheck';
 const UPDATE_CHECK_INTERVAL = 1000 * 60 * 60 * 24; // 24 hours
@@ -71,7 +71,7 @@ class UpdateManager {
       const lastCheck = await AsyncStorage.getItem(LAST_UPDATE_CHECK_KEY);
       if (!lastCheck) return true;
 
-      const timeSinceLastCheck = Date.now() - parseInt(lastCheck, 10);
+      const timeSinceLastCheck = Date.now() - Number.parseInt(lastCheck, 10);
       return timeSinceLastCheck >= this.config.checkInterval;
     } catch (error) {
       console.error('[Updates] Error checking last update time:', error);

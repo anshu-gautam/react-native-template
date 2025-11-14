@@ -4,8 +4,8 @@
  * Provides easy access to toast notifications within React components
  */
 
+import { type Toast, type ToastOptions, toast } from '@/services/toast';
 import { useEffect, useState } from 'react';
-import { toast, type Toast, type ToastOptions } from '@/services/toast';
 
 /**
  * Hook to display and manage toast notifications

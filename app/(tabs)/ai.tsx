@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, ScrollView, FlatList, Image as RNImage, ActivityIndicator } from 'react-native';
-import { Screen, Container, Card, Button } from '@/components';
-import { useTheme, useHaptics } from '@/hooks';
-import { useAIChat } from '@/features/ai/hooks/useAIChat';
+import { Button, Card, Container, Screen } from '@/components';
 import { ChatMessage } from '@/features/ai/components/ChatMessage';
 import { TokenCounter, estimateTokens } from '@/features/ai/components/TokenCounter';
+import { useAIChat } from '@/features/ai/hooks/useAIChat';
+import { useHaptics, useTheme } from '@/hooks';
+import React, { useState } from 'react';
+import {
+  ActivityIndicator,
+  FlatList,
+  Image as RNImage,
+  ScrollView,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 
 export default function AIPlaygroundScreen() {
   const { colors } = useTheme();
@@ -75,16 +83,7 @@ function ChatTab() {
   const { success, error: errorHaptic } = useHaptics();
   const [input, setInput] = useState('');
 
-  const {
-    messages,
-    isLoading,
-    isStreaming,
-    error,
-    send,
-    abort,
-    clear,
-    isOnline,
-  } = useAIChat();
+  const { messages, isLoading, isStreaming, error, send, abort, clear, isOnline } = useAIChat();
 
   const handleSend = async () => {
     if (!input.trim()) return;

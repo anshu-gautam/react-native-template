@@ -10,9 +10,9 @@
  * - Video playback utilities
  */
 
+import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 import * as MediaLibrary from 'expo-media-library';
-import { Camera } from 'expo-camera';
 
 export type MediaType = 'photo' | 'video' | 'all';
 

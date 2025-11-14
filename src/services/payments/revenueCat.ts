@@ -5,6 +5,7 @@
  * using RevenueCat SDK for cross-platform subscription management
  */
 
+import { Platform } from 'react-native';
 import Purchases, {
   LOG_LEVEL,
   type PurchasesOffering,
@@ -12,7 +13,6 @@ import Purchases, {
   type CustomerInfo,
   type PurchasesStoreProduct,
 } from 'react-native-purchases';
-import { Platform } from 'react-native';
 
 const REVENUECAT_API_KEYS = {
   ios: process.env.EXPO_PUBLIC_REVENUECAT_IOS_KEY || '',
@@ -153,9 +153,7 @@ export async function getCustomerInfo(): Promise<CustomerInfo | null> {
 /**
  * Check if user has active entitlement
  */
-export async function hasActiveEntitlement(
-  entitlementId: string
-): Promise<boolean> {
+export async function hasActiveEntitlement(entitlementId: string): Promise<boolean> {
   try {
     const customerInfo = await Purchases.getCustomerInfo();
     return customerInfo.entitlements.active[entitlementId] !== undefined;
@@ -181,9 +179,7 @@ export async function hasActiveSubscription(): Promise<boolean> {
 /**
  * Get products by IDs
  */
-export async function getProducts(
-  productIds: string[]
-): Promise<PurchasesStoreProduct[]> {
+export async function getProducts(productIds: string[]): Promise<PurchasesStoreProduct[]> {
   try {
     const products = await Purchases.getProducts(productIds);
     return products;

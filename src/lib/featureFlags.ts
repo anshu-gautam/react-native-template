@@ -8,17 +8,19 @@
  * - Override in debug menu
  */
 
-import { useMMKVString } from 'react-native-mmkv';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useMMKVString } from 'react-native-mmkv';
 
 // Extend global type for MMKV storage
 declare global {
   // eslint-disable-next-line no-var
-  var mmkvStorage: {
-    getString: (key: string) => string | undefined;
-    set: (key: string, value: string) => void;
-    delete: (key: string) => void;
-  } | undefined;
+  var mmkvStorage:
+    | {
+        getString: (key: string) => string | undefined;
+        set: (key: string, value: string) => void;
+        delete: (key: string) => void;
+      }
+    | undefined;
 }
 
 const REMOTE_FLAGS_KEY = '@app/remoteFeatureFlags';
@@ -279,7 +281,7 @@ class FeatureFlagsManager {
       const lastFetch = await AsyncStorage.getItem(FLAGS_LAST_FETCH_KEY);
       if (!lastFetch) return true;
 
-      const timeSinceLastFetch = Date.now() - parseInt(lastFetch, 10);
+      const timeSinceLastFetch = Date.now() - Number.parseInt(lastFetch, 10);
       return timeSinceLastFetch >= FLAGS_FETCH_INTERVAL;
     } catch {
       return true;

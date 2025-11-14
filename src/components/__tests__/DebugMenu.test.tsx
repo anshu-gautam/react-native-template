@@ -2,8 +2,8 @@
  * DebugMenu Component Tests
  */
 
+import { fireEvent, render, screen } from '@testing-library/react-native';
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react-native';
 import { DebugMenu } from '../DebugMenu';
 
 // Mock expo modules

@@ -5,10 +5,11 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/react-native';
-import { View, Text } from 'react-native';
-import { ErrorBoundary } from './ErrorBoundary';
-import React, { useState } from 'react';
+import type React from 'react';
+import { useState } from 'react';
+import { Text, View } from 'react-native';
 import { Button } from './Button';
+import { ErrorBoundary } from './ErrorBoundary';
 
 // Component that throws an error
 const ErrorComponent: React.FC = () => {
@@ -25,14 +26,8 @@ const ConditionalErrorComponent: React.FC = () => {
 
   return (
     <View style={{ padding: 20 }}>
-      <Text style={{ fontSize: 18, marginBottom: 20 }}>
-        Click the button to trigger an error
-      </Text>
-      <Button
-        title="Trigger Error"
-        onPress={() => setShouldError(true)}
-        variant="danger"
-      />
+      <Text style={{ fontSize: 18, marginBottom: 20 }}>Click the button to trigger an error</Text>
+      <Button title="Trigger Error" onPress={() => setShouldError(true)} variant="danger" />
     </View>
   );
 };

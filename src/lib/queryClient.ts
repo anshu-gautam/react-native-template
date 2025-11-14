@@ -8,8 +8,8 @@
  * - Network state awareness
  */
 
-import { QueryClient } from '@tanstack/react-query';
 import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
+import { QueryClient } from '@tanstack/react-query';
 import { storage } from './mmkv';
 
 /**
@@ -79,7 +79,9 @@ export function clearQueryCache(): void {
  * @param queryKey Query key or key pattern to invalidate
  */
 export function invalidateQueries(queryKey: string | string[]): Promise<void> {
-  return queryClient.invalidateQueries({ queryKey: Array.isArray(queryKey) ? queryKey : [queryKey] });
+  return queryClient.invalidateQueries({
+    queryKey: Array.isArray(queryKey) ? queryKey : [queryKey],
+  });
 }
 
 /**

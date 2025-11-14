@@ -1,6 +1,6 @@
-import type React from 'react';
-import { View, Text } from 'react-native';
 import { useTheme } from '@/hooks';
+import type React from 'react';
+import { Text, View } from 'react-native';
 
 interface TokenCounterProps {
   tokens: number;

@@ -4,7 +4,7 @@
  * Displays when there's no data to show
  */
 
-import { View, Text, StyleSheet, Pressable, type ViewStyle } from 'react-native';
+import { Pressable, StyleSheet, Text, View, type ViewStyle } from 'react-native';
 
 interface EmptyStateProps {
   /**
