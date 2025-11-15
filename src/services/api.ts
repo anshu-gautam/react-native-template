@@ -1,6 +1,12 @@
 import { logError } from '@/lib/sentry';
+import { networkInterceptor, NetworkErrorType } from '@/lib/networkInterceptor';
 import type { ApiError, ApiResponse } from '@/types';
-import axios, { type AxiosInstance, type AxiosError, type AxiosRequestConfig } from 'axios';
+import axios, {
+  type AxiosInstance,
+  type AxiosError,
+  type AxiosRequestConfig,
+  type InternalAxiosRequestConfig,
+} from 'axios';
 
 const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3000/api';
 
@@ -23,12 +29,21 @@ class ApiClient {
     // Request interceptor
     this.client.interceptors.request.use(
       (config) => {
+        // Check rate limit before making request
+        if (!networkInterceptor.checkRateLimit()) {
+          const error: any = new Error('Rate limit exceeded');
+          error.isRateLimitError = true;
+          return Promise.reject(error);
+        }
+
         // Add auth token if available
         // You can get the token from your auth store here
         // const token = getAuthToken();
         // if (token) {
         //   config.headers.Authorization = `Bearer ${token}`;
         // }
+
+        console.log(`[API] ${config.method?.toUpperCase()} ${config.url}`);
         return config;
       },
       (error) => {
@@ -36,29 +51,68 @@ class ApiClient {
       }
     );
 
-    // Response interceptor
+    // Response interceptor with retry logic
     this.client.interceptors.response.use(
       (response) => {
         return response;
       },
-      (error: AxiosError<ApiError>) => {
-        const apiError: ApiError = {
-          message: error.response?.data?.message || error.message || 'An error occurred',
-          code: error.response?.data?.code || error.code,
-          status: error.response?.status,
-          errors: error.response?.data?.errors,
-        };
+      async (error: AxiosError<ApiError>) => {
+        const config = error.config as InternalAxiosRequestConfig & { __retryCount?: number };
 
-        // Log error to Sentry
-        logError(error as Error, {
-          apiError,
-          url: error.config?.url,
-          method: error.config?.method,
-        });
+        // Classify the error
+        const networkError = networkInterceptor.classifyError(error);
 
-        return Promise.reject(apiError);
+        // Log error details
+        console.error(
+          `[API] Error: ${networkError.type}`,
+          error.response?.status,
+          error.message
+        );
+
+        // Check if we should retry
+        const retryCount = networkInterceptor.getRetryCount(config);
+        const shouldRetry = networkError.retryable && retryCount < 3;
+
+        if (shouldRetry && config) {
+          try {
+            await networkInterceptor.retryRequest(error, retryCount);
+            // Retry the request
+            return this.client.request(config);
+          } catch (retryError) {
+            // Max retries reached or error not retryable
+            return this.handleError(retryError as AxiosError<ApiError>);
+          }
+        }
+
+        return this.handleError(error);
       }
     );
+  }
+
+  private handleError(error: AxiosError<ApiError>): Promise<never> {
+    const networkError = networkInterceptor.classifyError(error);
+
+    const apiError: ApiError = {
+      message: error.response?.data?.message || error.message || 'An error occurred',
+      code: error.response?.data?.code || error.code,
+      status: error.response?.status,
+      errors: error.response?.data?.errors,
+    };
+
+    // Add network error type to API error
+    (apiError as any).networkErrorType = networkError.type;
+
+    // Log error to Sentry (only for non-retryable errors or after max retries)
+    if (!networkError.retryable || networkError.type === NetworkErrorType.CLIENT_ERROR) {
+      logError(error as Error, {
+        apiError,
+        networkErrorType: networkError.type,
+        url: error.config?.url,
+        method: error.config?.method,
+      });
+    }
+
+    return Promise.reject(apiError);
   }
 
   async get<T>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
@@ -66,7 +120,11 @@ class ApiClient {
     return response.data;
   }
 
-  async post<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+  async post<T>(
+    url: string,
+    data?: unknown,
+    config?: AxiosRequestConfig
+  ): Promise<ApiResponse<T>> {
     const response = await this.client.post<ApiResponse<T>>(url, data, config);
     return response.data;
   }
@@ -96,6 +154,20 @@ class ApiClient {
 
   removeAuthToken(): void {
     this.client.defaults.headers.common.Authorization = undefined;
+  }
+
+  /**
+   * Clear request cache for deduplication
+   */
+  clearCache(): void {
+    networkInterceptor.clearCache();
+  }
+
+  /**
+   * Reset rate limiter
+   */
+  resetRateLimit(): void {
+    networkInterceptor.resetRateLimit();
   }
 }
 
