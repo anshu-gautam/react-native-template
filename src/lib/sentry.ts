@@ -23,7 +23,7 @@ export const initSentry = (): void => {
   if (API_URL) {
     try {
       const apiHost = new URL(API_URL).host;
-      tracePropagationTargets.push(new RegExp(`^https?://${apiHost.replace('.', '\\.')}`));
+      tracePropagationTargets.push(new RegExp(`^https?://${apiHost.replace(/\./g, '\\.')}`));
     } catch (error) {
       console.warn('Invalid API_URL for Sentry trace propagation:', API_URL);
     }
