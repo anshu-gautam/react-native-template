@@ -10,11 +10,15 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { useTheme } from '@/hooks';
 import i18n from '@/lib/i18n';
+import { setupGlobalErrorHandlers } from '@/lib/errorHandler';
 import { initSentry } from '@/lib/sentry';
 import { CLERK_PUBLISHABLE_KEY, tokenCache } from '@/services/clerk';
 
 // Initialize Sentry
 initSentry();
+
+// Setup global error handlers
+setupGlobalErrorHandlers();
 
 // Prevent splash screen from auto-hiding
 SplashScreen.preventAutoHideAsync();

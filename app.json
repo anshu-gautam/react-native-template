@@ -38,7 +38,18 @@
       "favicon": "./assets/favicon.png",
       "bundler": "metro"
     },
-    "plugins": ["expo-router", "expo-secure-store", "expo-localization"],
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      "expo-localization",
+      [
+        "@sentry/react-native/expo",
+        {
+          "organization": "your-sentry-org",
+          "project": "your-sentry-project"
+        }
+      ]
+    ],
     "scheme": "myapp",
     "experiments": {
       "typedRoutes": true

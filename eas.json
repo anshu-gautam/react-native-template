@@ -22,7 +22,9 @@
     "preview": {
       "distribution": "internal",
       "env": {
-        "APP_VARIANT": "preview"
+        "APP_VARIANT": "preview",
+        "SENTRY_ORG": "your-sentry-org",
+        "SENTRY_PROJECT": "your-sentry-project"
       },
       "ios": {
         "simulator": false,
@@ -34,7 +36,9 @@
     },
     "production": {
       "env": {
-        "APP_VARIANT": "production"
+        "APP_VARIANT": "production",
+        "SENTRY_ORG": "your-sentry-org",
+        "SENTRY_PROJECT": "your-sentry-project"
       },
       "autoIncrement": true,
       "ios": {
