@@ -29,7 +29,10 @@
     "size": "size-limit",
     "release:patch": "node scripts/release.js patch",
     "release:minor": "node scripts/release.js minor",
-    "release:major": "node scripts/release.js major"
+    "release:major": "node scripts/release.js major",
+    "screenshots:ios": "node scripts/generate-screenshots.js ios",
+    "screenshots:android": "node scripts/generate-screenshots.js android",
+    "screenshots:all": "node scripts/generate-screenshots.js all"
   },
   "dependencies": {
     "@ai-sdk/openai": "^2.0.65",
