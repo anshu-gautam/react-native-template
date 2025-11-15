@@ -71,7 +71,14 @@ A production-ready, zero-setup React Native Expo app boilerplate with all the la
 - **Screen View Tracking** with Expo Router integration
 - **User Identification** and properties
 - **Feature Flags** for A/B testing
-- **Sentry** for error monitoring and crash reporting
+- **Sentry** for production-ready error monitoring and crash reporting
+  - Automatic error tracking with global error handlers
+  - React Error Boundaries with fallback UI
+  - Performance monitoring and navigation tracking
+  - Source maps upload for readable stack traces
+  - Release and environment tracking
+  - User context and breadcrumbs
+  - See [Error Monitoring Guide](docs/ERROR_MONITORING.md)
 
 ### Deep Linking & Navigation (NEW!)
 - **Universal Links** (iOS) and App Links (Android) support
@@ -248,6 +255,7 @@ my-app/
 │   ├── images/
 │   └── icons/
 ├── docs/                         # Documentation
+│   ├── ERROR_MONITORING.md       # Sentry error monitoring guide
 │   └── PAYMENT_INTEGRATION.md    # Payment setup guide
 ├── .env.local.example            # Environment variables template
 ├── .env.production.example

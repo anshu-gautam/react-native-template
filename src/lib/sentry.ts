@@ -1,8 +1,10 @@
 import * as Sentry from '@sentry/react-native';
 import Constants from 'expo-constants';
+import * as Application from 'expo-application';
 
 const SENTRY_DSN = process.env.EXPO_PUBLIC_SENTRY_DSN;
 const APP_ENV = process.env.EXPO_PUBLIC_APP_ENV || 'development';
+const API_URL = process.env.EXPO_PUBLIC_API_URL || '';
 
 export const initSentry = (): void => {
   if (!SENTRY_DSN) {
@@ -10,11 +12,30 @@ export const initSentry = (): void => {
     return;
   }
 
+  // Generate release name in format: bundleIdentifier@version+buildNumber
+  const bundleId = Application.applicationId || Constants.expoConfig?.slug || 'unknown';
+  const version = Constants.expoConfig?.version || '1.0.0';
+  const buildNumber = Application.nativeBuildVersion || '1';
+  const release = `${bundleId}@${version}+${buildNumber}`;
+
+  // Generate tracePropagationTargets from API_URL
+  const tracePropagationTargets: (string | RegExp)[] = ['localhost'];
+  if (API_URL) {
+    try {
+      const apiHost = new URL(API_URL).host;
+      tracePropagationTargets.push(new RegExp(`^https?://${apiHost.replace('.', '\\.')}`));
+    } catch (error) {
+      console.warn('Invalid API_URL for Sentry trace propagation:', API_URL);
+    }
+  }
+
   Sentry.init({
     dsn: SENTRY_DSN,
     environment: APP_ENV,
     enabled: APP_ENV !== 'development',
     debug: APP_ENV === 'development',
+    release: release,
+    dist: buildNumber,
     tracesSampleRate: APP_ENV === 'production' ? 0.2 : 1.0,
     attachStacktrace: true,
     enableAutoSessionTracking: true,
@@ -23,7 +44,7 @@ export const initSentry = (): void => {
     integrations: [
       new Sentry.ReactNativeTracing({
         routingInstrumentation: new Sentry.ReactNavigationInstrumentation(),
-        tracePropagationTargets: ['localhost', /^https:\/\/api\.yourapp\.com/],
+        tracePropagationTargets,
       }),
     ],
     beforeSend(event) {
@@ -42,10 +63,13 @@ export const initSentry = (): void => {
     },
   });
 
-  // Set release and dist
-  if (Constants.expoConfig?.version) {
-    Sentry.setTag('version', Constants.expoConfig.version);
-  }
+  // Set additional context
+  Sentry.setContext('app', {
+    version: version,
+    buildNumber: buildNumber,
+    bundleId: bundleId,
+    expoVersion: Constants.expoVersion,
+  });
 };
 
 export const logError = (error: Error, context?: Record<string, unknown>): void => {
