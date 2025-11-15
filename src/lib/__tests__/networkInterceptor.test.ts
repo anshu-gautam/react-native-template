@@ -66,7 +66,7 @@ describe('NetworkInterceptor', () => {
           config: {} as InternalAxiosRequestConfig,
         },
         config: {},
-      } as AxiosError;
+      } as unknown as AxiosError;
 
       const result = interceptor.classifyError(error);
 

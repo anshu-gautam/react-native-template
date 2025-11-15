@@ -73,7 +73,7 @@ const STORAGE_KEY = '@app/logs';
 export class Logger {
   private config: LoggerConfig;
   private logBuffer: LogEntry[] = [];
-  private flushTimer?: NodeJS.Timeout;
+  private flushTimer?: ReturnType<typeof setInterval>;
   private sessionId: string;
   private userId?: string;
 

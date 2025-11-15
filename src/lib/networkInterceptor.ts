@@ -11,7 +11,7 @@
 
 import NetInfo from '@react-native-community/netinfo';
 import * as Sentry from '@sentry/react-native';
-import type { AxiosError, AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
+import type { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 // Network error types
 export enum NetworkErrorType {
@@ -83,7 +83,7 @@ export class NetworkInterceptor {
    * Classify network error type
    */
   classifyError(error: AxiosError): NetworkError {
-    const networkError = error as NetworkError;
+    const networkError = error as unknown as NetworkError;
 
     // Check if it's a timeout
     if (error.code === 'ECONNABORTED' || error.message?.includes('timeout')) {
