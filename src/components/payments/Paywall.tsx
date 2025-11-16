@@ -167,8 +167,8 @@ export function Paywall({
             'Advanced analytics',
             'Cloud sync across devices',
             'Early access to new features',
-          ].map((feature, index) => (
-            <View key={index} style={styles.featureRow}>
+          ].map((feature) => (
+            <View key={feature} style={styles.featureRow}>
               <Text style={styles.checkmark}>✓</Text>
               <Text style={styles.featureText}>{feature}</Text>
             </View>

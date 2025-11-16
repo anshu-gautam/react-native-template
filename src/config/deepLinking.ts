@@ -79,9 +79,9 @@ export function generateDeepLink(route: string, params?: Record<string, string>)
   const url = new URL(route, baseUrl);
 
   if (params) {
-    Object.entries(params).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(params)) {
       url.searchParams.append(key, value);
-    });
+    }
   }
 
   return url.toString();

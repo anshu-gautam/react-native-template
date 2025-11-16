@@ -23,6 +23,12 @@ const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 export interface CarouselImage {
   /**
+   * Unique identifier for the image
+   * If not provided, a combination of uri and index will be used as the key
+   */
+  id?: string;
+
+  /**
    * Image URI
    */
   uri: string;
@@ -170,7 +176,7 @@ export function ImageCarousel({
         showsHorizontalScrollIndicator={false}
         onScroll={onScroll}
         scrollEventThrottle={16}
-        keyExtractor={(_item, index) => `carousel-${index}`}
+        keyExtractor={(item, index) => item.id || `${item.uri}-${index}`}
         onScrollBeginDrag={stopAutoPlay}
         onScrollEndDrag={startAutoPlay}
         onMomentumScrollEnd={onScroll}
@@ -178,8 +184,12 @@ export function ImageCarousel({
 
       {showPagination && images.length > 1 && (
         <View style={styles.pagination}>
-          {images.map((_, index) => (
-            <PaginationDot key={`dot-${index}`} index={index} activeIndex={activeIndex} />
+          {images.map((image, index) => (
+            <PaginationDot
+              key={image.id || `${image.uri}-${index}`}
+              index={index}
+              activeIndex={activeIndex}
+            />
           ))}
         </View>
       )}
