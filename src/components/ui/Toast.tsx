@@ -67,7 +67,7 @@ function ToastItem({ toast, onHide }: ToastItemProps) {
     }
 
     return undefined;
-  }, []);
+  }, [toast.position, toast.duration, toast.id, onHide, translateY, opacity]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: translateY.value }],

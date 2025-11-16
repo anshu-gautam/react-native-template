@@ -79,7 +79,7 @@ export function NetworkStatusBanner({
       translateY.value = withSpring(position === 'top' ? -100 : 100, { damping: 15 });
       opacity.value = withTiming(0, { duration: 300 });
     }
-  }, [showBanner, isConnected, position]);
+  }, [showBanner, isConnected, position, translateY, opacity]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: translateY.value }],

@@ -8,11 +8,23 @@ import { Platform } from 'react-native';
 import type { WebView } from 'react-native-webview';
 
 /**
+ * Message payload types
+ */
+export type WebMessagePayload =
+  | { message: string }
+  | { args: unknown[] }
+  | { userAgent: string; platform: string }
+  | { key: string; value: string | null }
+  | string
+  | Record<string, unknown>
+  | undefined;
+
+/**
  * Message from web to native
  */
 export interface WebMessage {
   type: string;
-  payload?: any;
+  payload?: WebMessagePayload;
 }
 
 /**
@@ -75,7 +87,7 @@ export const NATIVE_BRIDGE_SCRIPT = `
 export function sendMessageToWeb(
   webViewRef: React.RefObject<WebView>,
   type: string,
-  payload?: any
+  payload?: WebMessagePayload
 ): void {
   const message = JSON.stringify({ type, payload });
   const script = `
@@ -90,11 +102,20 @@ export function sendMessageToWeb(
 }
 
 /**
+ * WebView message event type
+ */
+export interface WebViewMessageEvent {
+  nativeEvent: {
+    data: string;
+  };
+}
+
+/**
  * Parse message from web
  */
-export function parseWebMessage(event: any): WebMessage | null {
+export function parseWebMessage(event: WebViewMessageEvent): WebMessage | null {
   try {
-    const data = JSON.parse(event.nativeEvent.data);
+    const data = JSON.parse(event.nativeEvent.data) as WebMessage;
     return data;
   } catch (error) {
     console.error('Error parsing web message:', error);
