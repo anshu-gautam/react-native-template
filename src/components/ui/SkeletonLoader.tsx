@@ -54,6 +54,7 @@ export function SkeletonLoader({
 
   useEffect(() => {
     shimmer.value = withRepeat(withTiming(1, { duration: 1500 }), -1, false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const animatedStyle = useAnimatedStyle(() => {
@@ -74,14 +75,14 @@ export function SkeletonLoader({
         };
       case 'text':
         return {
-          width: width as any,
+          width: typeof width === 'number' ? width : undefined,
           height: 16,
           borderRadius: 4,
         };
       default:
         return {
-          width: width as any,
-          height: height as any,
+          width: typeof width === 'number' ? width : undefined,
+          height: typeof height === 'number' ? height : undefined,
           borderRadius,
         };
     }

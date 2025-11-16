@@ -79,6 +79,7 @@ export function NetworkStatusBanner({
       translateY.value = withSpring(position === 'top' ? -100 : 100, { damping: 15 });
       opacity.value = withTiming(0, { duration: 300 });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showBanner, isConnected, position]);
 
   const animatedStyle = useAnimatedStyle(() => ({
