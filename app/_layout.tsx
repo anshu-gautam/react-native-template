@@ -13,6 +13,8 @@ import i18n from '@/lib/i18n';
 import { setupGlobalErrorHandlers } from '@/lib/errorHandler';
 import { initSentry } from '@/lib/sentry';
 import { CLERK_PUBLISHABLE_KEY, tokenCache } from '@/services/clerk';
+import { GlobalModalManager } from '@/components/ui';
+import { ToastContainer } from '@/components/ui';
 
 // Initialize Sentry
 initSentry();
@@ -70,6 +72,8 @@ export default function RootLayout() {
         <ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY} tokenCache={tokenCache}>
           <I18nextProvider i18n={i18n}>
             <RootLayoutNav />
+            <GlobalModalManager />
+            <ToastContainer />
           </I18nextProvider>
         </ClerkProvider>
       </QueryClientProvider>
