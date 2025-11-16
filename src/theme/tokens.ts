@@ -5,7 +5,8 @@
  * Based on Material Design and iOS Human Interface Guidelines.
  */
 
-import { Easing, TextStyle, ViewStyle } from 'react-native';
+import { Easing } from 'react-native';
+import type { TextStyle, ViewStyle } from 'react-native';
 
 /**
  * Color Palette
