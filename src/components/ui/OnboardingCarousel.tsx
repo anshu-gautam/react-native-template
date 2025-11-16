@@ -22,6 +22,12 @@ const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 export interface OnboardingSlide {
   /**
+   * Unique identifier for the slide
+   * If not provided, title will be used as the key
+   */
+  id?: string;
+
+  /**
    * Slide title
    */
   title: string;
@@ -154,15 +160,15 @@ export function OnboardingCarousel({
         showsHorizontalScrollIndicator={false}
         onScroll={onScroll}
         scrollEventThrottle={16}
-        keyExtractor={(_, index) => `slide-${index}`}
+        keyExtractor={(slide) => slide.id || slide.title}
       />
 
       {/* Footer with pagination and buttons */}
       <View style={[styles.footer, { paddingBottom: insets.bottom + 24 }]}>
         {/* Pagination dots */}
         <View style={styles.pagination}>
-          {slides.map((_, index) => (
-            <PaginationDot key={`dot-${index}`} index={index} activeIndex={activeIndex} />
+          {slides.map((slide, index) => (
+            <PaginationDot key={slide.id || slide.title} index={index} activeIndex={activeIndex} />
           ))}
         </View>
 

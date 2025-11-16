@@ -122,7 +122,7 @@ export function SkeletonGroup({ count = 3, spacing = 12, itemProps }: SkeletonGr
     <View>
       {Array.from({ length: count }).map((_, index) => (
         <SkeletonLoader
-          key={index}
+          key={`skeleton-${index}`}
           {...itemProps}
           style={{ marginBottom: index < count - 1 ? spacing : 0 }}
         />

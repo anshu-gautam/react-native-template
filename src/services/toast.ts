@@ -49,7 +49,9 @@ class ToastService {
    * Notify all listeners of toast updates
    */
   private notify(): void {
-    this.listeners.forEach((listener) => listener([...this.toasts]));
+    for (const listener of this.listeners) {
+      listener([...this.toasts]);
+    }
   }
 
   /**
@@ -114,7 +116,9 @@ class ToastService {
    */
   hideAll(): void {
     // Clear all timers
-    this.autoHideTimers.forEach((timer) => clearTimeout(timer));
+    for (const timer of this.autoHideTimers.values()) {
+      clearTimeout(timer);
+    }
     this.autoHideTimers.clear();
 
     // Clear all toasts
