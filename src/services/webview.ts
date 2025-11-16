@@ -241,7 +241,7 @@ export const LocalStorageManager = {
    * Clear all localStorage
    */
   clear: (webViewRef: React.RefObject<WebView>) => {
-    const script = `localStorage.clear(); true;`;
+    const script = 'localStorage.clear(); true;';
     webViewRef.current?.injectJavaScript(script);
   },
 };
