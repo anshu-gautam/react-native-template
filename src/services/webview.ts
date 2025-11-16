@@ -16,7 +16,6 @@ export type WebMessagePayload =
   | { userAgent: string; platform: string }
   | { key: string; value: string | null }
   | string
-  | Record<string, unknown>
   | undefined;
 
 /**

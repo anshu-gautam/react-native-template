@@ -54,7 +54,8 @@ export function SkeletonLoader({
 
   useEffect(() => {
     shimmer.value = withRepeat(withTiming(1, { duration: 1500 }), -1, false);
-  }, [shimmer]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const animatedStyle = useAnimatedStyle(() => {
     const translateX = interpolate(shimmer.value, [0, 1], [-width as number, width as number]);
